@@ -38,12 +38,16 @@ model User {
   birthDate  DateTime
   email      String    @unique
   password   String
+  gender    Gender?
   journals   Journal[]
   quoteLogs  QuoteLog[]
   logins     SystemLog[]
+  role       Role    @default(user) 
+  verifiedAt DateTime?
   createdAt  DateTime  @default(now())
   updatedAt  DateTime  @updatedAt
 }
+
 
 model Journal {
   journal_id   Int       @id @default(autoincrement())
@@ -74,6 +78,17 @@ model QuoteLog {
   quoteId    Int
   action     QuoteAction
   createdAt  DateTime @default(now())
+}
+
+enum Gender {
+  male
+  female
+}
+
+
+enum Role {
+  admin
+  user
 }
 
 enum Mood {

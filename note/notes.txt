@@ -1,0 +1,7 @@
+todo 
+- role based access (admin dan user)
+- crud journal (modd just randomize -> use from data research)
+- add data quotes (read all and id and populer and by mood)
+- statistic journal timeframe (week, months, and year)
+
+- delete and post quote log (make for like and history click user)

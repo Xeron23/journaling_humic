@@ -4,7 +4,7 @@ import AuthController from "./auth-controller.js";
 import tryCatch from "../../utils/tryCatcher.js";
 import validateCredentials from '../../middlewares/validate-credentials-middleware.js';
 import { registerSchema, loginSchema, changePasswordSchema, refreshTokenSchema, profileSchema } from './auth-schema.js';
-import authToken from "../../middlewares/auth-token-middleware.js";
+import AuthMiddleware from "../../middlewares/auth-token-middleware.js";
 
 class AuthRoutes extends BaseRoutes {
     routes() {
@@ -24,16 +24,16 @@ class AuthRoutes extends BaseRoutes {
             tryCatch(AuthController.refreshToken)
         ]),
         this.router.get("/me", [
-            authToken,
+            AuthMiddleware.authenticate,
             tryCatch(AuthController.getProfile)
         ]);
         this.router.put("/me/update", [
-            authToken,
+            AuthMiddleware.authenticate,
             validateCredentials(profileSchema),
             tryCatch(AuthController.updateProfile)
         ]);
         this.router.patch("/me/update-password", [
-            authToken,
+            AuthMiddleware.authenticate,
             validateCredentials(changePasswordSchema),
             tryCatch(AuthController.updatePassword)
         ]);

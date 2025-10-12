@@ -3,9 +3,9 @@ import AuthService from "./auth-service.js";
 
 class AuthController {
     async login(req, res) {
-        const { email, password } = req.body;
+        const { username, password } = req.body;
 
-        const response = await AuthService.login(email, password);
+        const response = await AuthService.login(username, password);
 
         if (!response) {
             throw Error("Failed to login");
@@ -15,9 +15,9 @@ class AuthController {
     }
 
     async register(req, res) {
-        
-        const { last_name, first_name , email, password, phone_number} = req.body;
-        const message = await AuthService.register({ last_name, first_name, email, password, phone_number});
+
+        const { fullName, username , birthDate, password, email} = req.body;
+        const message = await AuthService.register({ fullName, username, birthDate, password, email });
 
         if (!message) {
             throw Error("Failed to register");
@@ -50,9 +50,9 @@ class AuthController {
     }
 
     async updateProfile(req, res){
-        const { first_name,last_name, phone_number } = req.body;
+        const { fullname, username, birthDate } = req.body;
 
-        const user = await AuthService.updateProfile(req.user.user_id, { first_name, last_name, phone_number});
+        const user = await AuthService.updateProfile(req.user.user_id, { fullname, username, birthDate });
 
         if (!user) {
             throw Error("Failed to update user profile");

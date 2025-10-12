@@ -8,18 +8,23 @@ import { hashPassword, matchPassword } from "../../utils/passwordConfig.js";
 
 
 class AuthService {
-    async login(email, password) {
+    async login(username, password) {
         let user = await prisma.user.findFirst({
             where: {
-                email: email
+                username: username
             }
         });
-        
-        if (!user) {
-            throw BaseError.badRequest("Invalid credentials");
+        if(!user){
+            user = await prisma.user.findFirst({
+                where: {
+                    email: username
+                }
+            });
+            if (!user) {
+                throw BaseError.badRequest("Invalid credentials");
+            }
         }
-        
-        
+
 
         const isMatch = await matchPassword(password, user.password);
         
@@ -55,17 +60,38 @@ class AuthService {
             }
         });
 
-        if (emailExist) {
-            let validation = "Email already taken.";
-            let stack = [{
-                message: "Email already taken.",
-                path: ["email"]
-            }];
+        const usernameExist = await prisma.user.findUnique({
+            where: {
+                username: data.username,
+            }
+        })
+
+        if (emailExist || usernameExist) {
+            let validation = "";
+            let stack = [];
+
+            if (usernameExist) {
+                validation = "Username already taken.";
+
+                stack.push({
+                    message: "Username already taken.",
+                    path: ["username"]
+                });
+            }
+
+            if (emailExist) {
+                validation += "Email already taken.";
+
+                stack.push({
+                    message: "Email already taken.",
+                    path: ["email"]
+                });
+            }
             throw new joi.ValidationError(validation, stack);
         }
 
         data.password = await hashPassword(data.password);
-        
+        data.birthDate = new Date(data.birthDate);
         const createdUser = await prisma.user.create({
             data: data
         });
@@ -76,7 +102,6 @@ class AuthService {
 
         const token = generateToken(createdUser.user_id, "5m");
         const verificationLink = `${process.env.BE_URL}/api/v1/auth/verify/${token}`;
-        console.log("link: ",verificationLink);
         
         const emailHtml = generateVerifEmail(verificationLink);
 
@@ -132,10 +157,10 @@ class AuthService {
             },
             select: {
                 user_id: true,
-                first_name: true,
-                last_name: true,
+                username: true,
+                role: true,
                 email: true,
-                phone_number: true
+                birthDate: true
             }
         });
 
@@ -159,14 +184,14 @@ class AuthService {
 
         const updatedUser = await prisma.user.update({
             where: {
-                user_id: id
+                user_id: user.user_id
             },
             data: data,
             select: {
                 user_id: true,
-                first_name: true,
-                email: true,
-                last_name: true,
+                username: true,
+                birthDate: true,
+                fullName: true,
             }
         });
 

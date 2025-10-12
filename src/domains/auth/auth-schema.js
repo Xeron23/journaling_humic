@@ -1,37 +1,36 @@
 import Joi from "joi";
 
 const loginSchema = Joi.object({
-    email : Joi.string()
+    username : Joi.string()
         .required()
         .messages({
-            "string.empty": "Email is required."
-        }),
+            "string.empty": "Username or email is required."
+    }),
     password : Joi.string()
         .required()
         .messages({
             "string.empty": "Password is required."
-        })
-    });
+    }),
+});
 
 const registerSchema = Joi.object({
-    first_name: Joi.string().required().min(2)
+    fullName: Joi.string().required().min(4)
         .messages({
-            "string.empty": "First name is required.",
-            "string.min": "First name must be at least 2 characters long.",
-            "string.base": "First name can only contain letters and spaces."
+            "string.empty": "Fullname is required.",
+            "string.min": "Fullname must be at least 2 characters long.",
+            "string.base": "Fullname can only contain letters and spaces."
     }),
-    last_name: Joi.string().required().min(4)
+    username: Joi.string().required().min(4)
         .messages({
-            "string.empty": "First name is required.",
-            "string.min": "First name must be at least 4 characters long.",
-            "string.base": "First name can only contain letters and spaces."
+            "string.empty": "Username is required.",
+            "string.min": "Username must be at least 4 characters long.",
+            "string.base": "Username can only contain letters and spaces."
     }),
-    phone_number: Joi.string()
-        .pattern(/^\+628\d{8,}$/) // Ensures it starts with +628 and has at least 11 digits
+    birthDate: Joi.date()
         .required()
         .messages({
-            "string.empty": "Phone number is required.",
-            "string.pattern.base": "Phone number must start with +628 and be at least 11 digits long."
+            "date.empty": "Birth date is required.",
+            "date.base": "Birth date must be a valid date."
     }),
     email : Joi.string()
         .email()
@@ -53,19 +52,20 @@ const registerSchema = Joi.object({
     
 
 const profileSchema = Joi.object({
-    first_name : Joi.string().optional().min(2)
+    fullname : Joi.string().optional().min(4)
         .messages({
-            "string.empty": "First name is required.",
-            "string.min": "First name must be at least 2 characters long."
+            "string.empty": "Fullname is required.",
+            "string.min": "Fullname must be at least 4 characters long."
     }),
-    last_name : Joi.string().optional().min(4)
+    username : Joi.string().optional().min(4)
         .messages({
-            "string.empty": "Name is required.",
-            "string.min": "Name must be at least 4 characters long."
+            "string.empty": "Username is required.",
+            "string.min": "Username must be at least 4 characters long."
     }),
-    phone_number: Joi.string().optional()
+    birth_date: Joi.date().optional()
         .messages({
-            "string.empty": "Phone number is required.",
+            "date.empty": "Birth date is required.",
+            "date.base": "Birth date must be a valid date."
     }),
 });
 
