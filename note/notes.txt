@@ -1,7 +1,8 @@
 todo 
-- role based access (admin dan user)
+- forgot password
+- role based access (admin dan user) -> finish
 - crud journal (modd just randomize -> use from data research)
+admin feature: title
 - add data quotes (read all and id and populer and by mood)
 - statistic journal timeframe (week, months, and year)
-
 - delete and post quote log (make for like and history click user)
