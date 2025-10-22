@@ -65,7 +65,6 @@ model Quote {
   category    QuoteCategory
   text        String
   author      String?
-  clickCount  Int          @default(0)
   quoteLogs   QuoteLog[]
   createdAt   DateTime     @default(now())
 }
@@ -92,17 +91,19 @@ enum Role {
 }
 
 enum Mood {
-  happy
-  sad
-  neutral
-  angry
-  motivated
+  HAPPY
+  SAD
+  NEUTRAL
+  ANGRY
+  MOTIVATED
 }
 
 enum QuoteCategory {
-  sad
-  happy
-  motivation
+  HAPPY
+  SAD
+  NEUTRAL
+  ANGRY
+  MOTIVATED
 }
 
 enum QuoteAction {
