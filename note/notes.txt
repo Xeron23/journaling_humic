@@ -1,7 +1,7 @@
 todo 
-- forgot password
+- forgot password -> finish
 - role based access (admin dan user) -> finish
-- crud journal (modd just randomize -> use from data research)
+- crud journal (modd just randomize -> use from data research) -> finish (tinggal kasih page dan limit)
 admin feature: title
 - add data quotes (read all and id and populer and by mood)
 - statistic journal timeframe (week, months, and year)

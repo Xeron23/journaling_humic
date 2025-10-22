@@ -254,6 +254,81 @@ class AuthService {
 
         return accessToken;
     }
+
+    async generateEmailResetPassword(email){
+        const user = await prisma.user.findFirst({
+            where: {
+                email: email
+            }
+        })
+        if(!user){
+            throw BaseError.notFound("user not found");
+        }
+
+        const token = generateToken(user.user_id, "5m");
+            const verificationLink = `${process.env.BE_URL}/api/v1/auth/verify-reset-password/${token}`;
+            console.log("link: ", verificationLink);
+        
+        const emailHtml = generateVerifEmail(verificationLink);
+
+        sendEmail(
+                user.email,
+                "Reset password dari Mou: Journaling",
+                "Silankah mengklik link di bawah",
+                emailHtml
+        );
+
+        return {message: "Successfully send reset password. Please check your email to reset your password"};
+    }
+
+    async verifyResetPassword(token){
+        const decoded = parseJWT(token);
+
+        if(!decoded){
+            return { status: 400, message: "Invalid token" };
+        }
+
+        const user = await  prisma.user.findUnique({
+            where: {
+                user_id: decoded.id
+            },
+            select: {
+                fullName: true,
+                user_id: true,
+                email: true,
+                role: true
+            }
+        });
+
+        if (!user) {
+            return { status: 400, message: "User Not Found" }
+        }
+
+        return {status: 200, message: "Password verification successfully", data: user}
+    }
+
+    async resetPassword(newPassword, id){
+        const user = await prisma.user.findUnique({
+            where: {
+                user_id: id,
+            }
+        })
+        if(!user){
+            throw BaseError.notFound("user not found");
+        }
+
+        user.password = await hashPassword(newPassword);
+        await prisma.user.update({
+            where: {
+                user_id: id
+            },
+            data: {
+                password: user.password
+            }
+        })
+
+        return {message: "Password reset succesfully"}
+    }
 }
 
 export default new AuthService();
