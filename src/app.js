@@ -15,6 +15,7 @@ import path from "path";
 import prisma from "./config/db.js";
 import corsOptions from "./config/cors.js";
 import AuthRoutes from "./domains/auth/auth-routes.js";
+import journalRoutes from "./domains/journals/journal-routes.js";
 
 class ExpressApplication {
     app;
@@ -85,6 +86,7 @@ class ExpressApplication {
     setupRoute() {
         // Set Route here base (/api/v1)
         this.app.use("/api/v1/auth", AuthRoutes);
+        this.app.use("/api/v1/journal", journalRoutes);
 
     }
 
