@@ -90,6 +90,9 @@ class JournalService {
         const randomIndex = Math.floor(Math.random() * moods.length);
         return moods[randomIndex];
     }
+
+    // get all data journal for csv admin timeframe (week, months, year)
+    
 }
 
 export default new JournalService();
