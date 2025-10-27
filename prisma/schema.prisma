@@ -65,6 +65,7 @@ model Quote {
   category    QuoteCategory
   text        String
   author      String?
+  // click_count Int   @default(0)
   quoteLogs   QuoteLog[]
   createdAt   DateTime     @default(now())
 }
@@ -76,7 +77,10 @@ model QuoteLog {
   quote      Quote    @relation(fields: [quoteId], references: [quote_id])
   quoteId    Int
   action     QuoteAction
+  count      Int @default(1)
   createdAt  DateTime @default(now())
+
+  @@unique([userId, quoteId, action])
 }
 
 enum Gender {
