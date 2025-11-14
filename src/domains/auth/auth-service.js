@@ -259,6 +259,12 @@ class AuthService {
         const user = await prisma.user.findFirst({
             where: {
                 email: email
+            },
+            select: {
+                fullName: true,
+                user_id: true,
+                email: true,
+                role: true
             }
         })
         if(!user){
@@ -299,18 +305,27 @@ class AuthService {
                 role: true
             }
         });
+        
 
         if (!user) {
             return { status: 400, message: "User Not Found" }
         }
 
-        return {status: 200, message: "Password verification successfully", data: user}
+        return {status: 200, message: "Password verification successfully", data: token}
     }
 
-    async resetPassword(newPassword, id){
+    async resetPassword(newPassword, token){
+        const decoded = parseJWT(token);
+        console.log(decoded);
+        
+
+        if(!decoded){
+            return { status: 400, message: "Invalid token" };
+        }
+
         const user = await prisma.user.findUnique({
             where: {
-                user_id: id,
+                user_id: decoded.id,
             }
         })
         if(!user){
@@ -320,7 +335,7 @@ class AuthService {
         user.password = await hashPassword(newPassword);
         await prisma.user.update({
             where: {
-                user_id: id
+                user_id: user.user_id
             },
             data: {
                 password: user.password
