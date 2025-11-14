@@ -62,7 +62,7 @@ model Journal {
 
 model Quote {
   quote_id    Int         @id @default(autoincrement())
-  category    QuoteCategory
+  category    Mood
   text        String
   author      String?
   // click_count Int   @default(0)
@@ -95,19 +95,34 @@ enum Role {
 }
 
 enum Mood {
-  HAPPY
-  SAD
+  ADMIRATION
+  AMUSEMENT
+  ANGER
+  ANNOYANCE
+  APPROVAL
+  CARING
+  CONFUSION
+  CURIOSITY
+  DESIRE
+  DISAPPOINTMENT
+  DISAPPROVAL
+  DISGUST
+  EMBARRASSMENT
+  EXCITEMENT
+  FEAR
+  GRATITUDE
+  GRIEF
+  JOY
+  LOVE
+  NERVOUSNESS
+  OPTIMISM
+  PRIDE
+  REALIZATION
+  RELIEF
+  REMORSE
+  SADNESS
+  SURPRISE
   NEUTRAL
-  ANGRY
-  MOTIVATED
-}
-
-enum QuoteCategory {
-  HAPPY
-  SAD
-  NEUTRAL
-  ANGRY
-  MOTIVATED
 }
 
 enum QuoteAction {

@@ -10,7 +10,7 @@ console.log('🌱 Starting database seed...');
 
   await prisma.quote.createMany({
     data: quotes
-  })
+  });
 
 
   console.log("✅ Seed quotes data inserted successfully!");
