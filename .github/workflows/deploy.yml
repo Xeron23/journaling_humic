@@ -41,7 +41,7 @@ jobs:
               --name test_journaling_humic-server \
               --network db-network \
               -p 4001:4001 \
-              -e DATABASE_URL="mysql://root:roopass@localhost:3306/mood_journal_app" \
+              -e DATABASE_URL="mysql://root:roopass@mysql-container-a:3306/mood_journal_app" \
               -e EMAIL_USERNAME="${{ secrets.EMAIL_USERNAME }}" \
               -e EMAIL_PASSWORD="${{ secrets.EMAIL_PASSWORD }}" \
               -e JWT_SECRET="${{ secrets.JWT_SECRET }}" \
