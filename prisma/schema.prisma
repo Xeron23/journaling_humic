@@ -128,6 +128,7 @@ enum Mood {
 enum QuoteAction {
   click
   like
+  journal_assigned
 }
 
 
