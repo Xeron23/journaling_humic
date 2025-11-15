@@ -90,9 +90,13 @@ class QuoteService {
     async recomendation({ userId, category }) {
     const clickedQuotes = await prisma.quoteLog.findMany({
         where: {
-        userId,
-        action: 'click',
-        quote: { category: category },
+            userId,
+            OR: [
+                {action: 'click'},
+                {action: 'journal_assigned'},
+            ],
+            // action: 'click',
+            quote: { category: category },
         },
         select: {
             quoteId: true,
@@ -100,7 +104,12 @@ class QuoteService {
         },
     });
 
+    console.log(clickedQuotes);
+    
     const clickedQuoteIds = clickedQuotes.map(q => q.quoteId);
+
+    console.log(clickedQuoteIds);
+    
 
     const quotes = await prisma.quote.findMany({
         where: {
