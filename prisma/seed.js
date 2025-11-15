@@ -5,12 +5,12 @@ async function main() {
 console.log('🌱 Starting database seed...');
   await prisma.$executeRawUnsafe(`SET FOREIGN_KEY_CHECKS = 0;`);
   await prisma.$executeRawUnsafe(`TRUNCATE TABLE Quote;`);
-  await prisma.$executeRawUnsafe(`SET FOREIGN_KEY_CHECKS = 1;`);
-
-
+  
+  
   await prisma.quote.createMany({
     data: quotes
   });
+  await prisma.$executeRawUnsafe(`SET FOREIGN_KEY_CHECKS = 1;`);
 
 
   console.log("✅ Seed quotes data inserted successfully!");
