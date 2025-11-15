@@ -6,7 +6,17 @@ class QuoteService {
     // create quote_logs (just click)
     // data -> userId, quoteId, click
     async quoteLog({userId, quoteId, action}){
-        const checkQuote = await prisma.quoteLog.upsert({
+        const checkQuote = await prisma.quote.findFirst({
+            where: {
+                quote_id: quoteId
+            }
+        });
+
+        if(!checkQuote){
+            throw BaseError.notFound("Quote not found");
+        }
+
+        const quoteLog = await prisma.quoteLog.upsert({
             where: {
                 userId_quoteId_action: {
                     userId,
@@ -23,7 +33,7 @@ class QuoteService {
                 action,
              },
         });
-        return checkQuote;
+        return quoteLog;
     }
 
     
@@ -120,7 +130,7 @@ class QuoteService {
         quotes.push(...backupQuotes);
     }
 
-    return quotes;
+    return quotes[0];
     }
 
     // like

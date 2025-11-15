@@ -27,7 +27,8 @@ class QuoteController {
 
     async index(req, res){
         const {quoteId} = req.params;
-        const quote = await quotesService.getById(quoteId);
+        const id = parseInt(quoteId);
+        const quote = await quotesService.getById(id);
         if(!quote){
             throw Error("Failed ot get quote");
         }

@@ -24,11 +24,43 @@ const quoteGetAll = Joi.object({
             "number.min": "Limit must be at least 1.",
             "number.max": "Limit must be at most 100."
     }),
-    category: Joi.string().optional().valid("HAPPY", "SAD", "NEUTRAL", "ANGRY", "MOTIVATED")
-        .messages({
-            "string.base": "action must be string",
-            "any.only": `Category must be "HAPPY", "SAD", "NEUTRAL", "ANGRY", "MOTIVATED"`
-        }),
+    category: Joi.string()
+    .required()
+    .valid(
+        "ADMIRATION",
+        "AMUSEMENT",
+        "ANGER",
+        "ANNOYANCE",
+        "APPROVAL",
+        "CARING",
+        "CONFUSION",
+        "CURIOSITY",
+        "DESIRE",
+        "DISAPPOINTMENT",
+        "DISAPPROVAL",
+        "DISGUST",
+        "EMBARRASSMENT",
+        "EXCITEMENT",
+        "FEAR",
+        "GRATITUDE",
+        "GRIEF",
+        "JOY",
+        "LOVE",
+        "NERVOUSNESS",
+        "OPTIMISM",
+        "PRIDE",
+        "REALIZATION",
+        "RELIEF",
+        "REMORSE",
+        "SADNESS",
+        "SURPRISE",
+        "NEUTRAL"
+    )
+    .messages({
+        "string.base": "category must be string",
+        "any.only":
+        'Category must be one of: "ADMIRATION", "AMUSEMENT", "ANGER", "ANNOYANCE", "APPROVAL", "CARING", "CONFUSION", "CURIOSITY", "DESIRE", "DISAPPOINTMENT", "DISAPPROVAL", "DISGUST", "EMBARRASSMENT", "EXCITEMENT", "FEAR", "GRATITUDE", "GRIEF", "JOY", "LOVE", "NERVOUSNESS", "OPTIMISM", "PRIDE", "REALIZATION", "RELIEF", "REMORSE", "SADNESS", "SURPRISE", "NEUTRAL"',
+    }),
     search_query: Joi.string().optional()
         .messages({
             "string.base": "aseach query must be string",
@@ -36,11 +68,43 @@ const quoteGetAll = Joi.object({
 });
 
 const quoteRecomendation = Joi.object({
-    category: Joi.string().required().valid("HAPPY", "SAD", "NEUTRAL", "ANGRY", "MOTIVATED")
-        .messages({
-            "string.base": "action must be string",
-            "any.only": `Category must be "HAPPY", "SAD", "NEUTRAL", "ANGRY", "MOTIVATED"`
-    })
+    category: Joi.string()
+    .required()
+    .valid(
+        "ADMIRATION",
+        "AMUSEMENT",
+        "ANGER",
+        "ANNOYANCE",
+        "APPROVAL",
+        "CARING",
+        "CONFUSION",
+        "CURIOSITY",
+        "DESIRE",
+        "DISAPPOINTMENT",
+        "DISAPPROVAL",
+        "DISGUST",
+        "EMBARRASSMENT",
+        "EXCITEMENT",
+        "FEAR",
+        "GRATITUDE",
+        "GRIEF",
+        "JOY",
+        "LOVE",
+        "NERVOUSNESS",
+        "OPTIMISM",
+        "PRIDE",
+        "REALIZATION",
+        "RELIEF",
+        "REMORSE",
+        "SADNESS",
+        "SURPRISE",
+        "NEUTRAL"
+    )
+    .messages({
+        "string.base": "category must be string",
+        "any.only":
+        'Category must be one of: "ADMIRATION", "AMUSEMENT", "ANGER", "ANNOYANCE", "APPROVAL", "CARING", "CONFUSION", "CURIOSITY", "DESIRE", "DISAPPOINTMENT", "DISAPPROVAL", "DISGUST", "EMBARRASSMENT", "EXCITEMENT", "FEAR", "GRATITUDE", "GRIEF", "JOY", "LOVE", "NERVOUSNESS", "OPTIMISM", "PRIDE", "REALIZATION", "RELIEF", "REMORSE", "SADNESS", "SURPRISE", "NEUTRAL"',
+    }),
 });
 
 const quoteSchema = Joi.object({
