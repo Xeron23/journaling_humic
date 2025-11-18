@@ -181,7 +181,7 @@ class AuthService {
         if (!user) {
             throw BaseError.notFound("User not found");
         }
-
+        data.birthDate = new Date(data.birthDate);
         const updatedUser = await prisma.user.update({
             where: {
                 user_id: user.user_id

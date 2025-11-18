@@ -48,11 +48,16 @@ const registerSchema = Joi.object({
             "string.min": "Password must be at least 8 characters long.",
             "string.pattern.base": "Password must be at least 8 characters long, contain at least 1 uppercase letter, and 1 special character."
         }),
+    gender: Joi.string().valid("male", "female").optional()
+        .messages({
+            "string.base": "Gender must be string",
+            "any.only": "Gender must be one of male, female"
+    }),
 });
     
 
 const profileSchema = Joi.object({
-    fullname : Joi.string().optional().min(4)
+    fullName : Joi.string().optional().min(4)
         .messages({
             "string.empty": "Fullname is required.",
             "string.min": "Fullname must be at least 4 characters long."
@@ -62,7 +67,7 @@ const profileSchema = Joi.object({
             "string.empty": "Username is required.",
             "string.min": "Username must be at least 4 characters long."
     }),
-    birth_date: Joi.date().optional()
+    birthDate: Joi.date().optional()
         .messages({
             "date.empty": "Birth date is required.",
             "date.base": "Birth date must be a valid date."
