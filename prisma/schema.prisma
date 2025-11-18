@@ -121,7 +121,7 @@ enum Mood {
   RELIEF
   REMORSE
   SADNESS
-  SURPRISE
+  SURPRISE 
   NEUTRAL
 }
 
