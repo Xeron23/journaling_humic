@@ -25,7 +25,7 @@ const quoteGetAll = Joi.object({
             "number.max": "Limit must be at most 100."
     }),
     category: Joi.string()
-    .required()
+    .optional()
     .valid(
         "ADMIRATION",
         "AMUSEMENT",
@@ -63,8 +63,8 @@ const quoteGetAll = Joi.object({
     }),
     search_query: Joi.string().optional()
         .messages({
-            "string.base": "aseach query must be string",
-        })
+            "string.base": "search query must be string",
+    })
 });
 
 const quoteRecomendation = Joi.object({
