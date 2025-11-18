@@ -1,7 +1,6 @@
 import BaseError from "../../base_classes/base-error.js";
 
 import prisma from "../../config/db.js";
-import geminiAi from "../../config/geminiAi.js";
 import { groq, GROQ_DEFAULT_MODEL, GROQ_DEFAULT_SETTINGS } from "../../config/groqAi.js";
 import quotesService from "../quotes/quotes-service.js";
 
@@ -30,11 +29,34 @@ class JournalService {
         }
     }
 
-    async getAll(userId){
-        const journal = await prisma.journal.findMany({
-            where: {
-                userId: userId
+    async getAll(userId, timeframe, {offset, limit}){
+        let where = {};
+        
+        if(timeframe === 'week'){
+            const now = new Date();
+            const dateFrom = new Date(now.getFullYear(), now.getMonth(), now.getDate() - 7);
+            where.createdAt = {
+                gte: dateFrom
             }
+        }
+        if(timeframe === 'month'){
+            const now = new Date();
+            const dateFrom = new Date(now.getFullYear(), now.getMonth() - 1, now.getDate());
+            where.createdAt = {
+                gte: dateFrom
+            }
+        }
+
+        const journal = await prisma.journal.findMany({
+            skip: offset ? Number(offset) : undefined,
+            take: limit ? Number(limit) : undefined,
+            where: {
+                userId: userId,
+                ...where
+            },
+            orderBy:{
+                createdAt: 'desc'
+            },
         })
         return journal;
     }
@@ -59,6 +81,7 @@ class JournalService {
                 journal_id: journal_id
             }
         })
+        
         if(!checkJournal) throw BaseError.notFound("jornal not found");
 
         if(data.content){
@@ -140,6 +163,7 @@ class JournalService {
             Guidelines:
             - The content can be in any language.
             - If multiple emotions appear, choose the SINGLE most dominant one based on the main theme.
+            - The spelling MUST match EXACTLY as written (for example: CURIOSITY, **NOT** CURIOUSITY).
             - If the text is mostly factual or has no clear emotion, choose NEUTRAL.
             - Distinguish:
             - ANGER = strong, intense anger; ANNOYANCE = mild irritation.
@@ -151,11 +175,6 @@ class JournalService {
             content: """${content}"""
         `;
 
-        // const response = await geminiAi.models.generateContent({
-        //     model: "gemini-2.5-flash",
-        //     contents: prompt,
-        // });
-        // return response.text;
 
         const response = await groq.chat.completions.create({
             model: GROQ_DEFAULT_MODEL,
@@ -166,7 +185,32 @@ class JournalService {
     }
 
     // get all data journal for csv admin timeframe (week, months, year)
-    
+    async getAllDataJournal() {
+    const users = await prisma.user.findMany({
+        where: {
+            journals: {
+                some: {} // cuma ambil user yang punya minimal 1 journal
+            }
+        },
+        select: {
+            fullName: true,
+            email: true,
+            birthDate: true,
+            _count: {
+                select: {
+                journals: true
+                }
+            }
+        }
+    });
+
+    return users.map(u => ({
+        fullName: u.fullName,
+        email: u.email,
+        birthDate: u.birthDate,
+        totalJournals: u._count.journals
+    }));
+    }
 }
 
 
