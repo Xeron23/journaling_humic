@@ -37,4 +37,22 @@ const updateJournalSchema = Joi.object({
     }),
 })
 
-export {journalSchema, createJournalSchema, updateJournalSchema};
+const getJournalSchema = Joi.object({
+    page: Joi.number().min(1).optional()
+        .messages({
+            "number.min": "Page must be at least 1",
+            "number.base": "Page must be number"
+    }),
+    limit: Joi.number().min(1).optional()
+        .messages({
+            "number.min": "Limit must be at least 1",
+            "number.base": "Limit must be number"
+    }),
+    timeframe: Joi.string().valid("week", "month").optional()
+        .messages({
+            "string.base": "Timeframe must be string",
+            "any.only": "Timeframe must be one of day, week, month, year"
+    }),
+});
+
+export {journalSchema, createJournalSchema, updateJournalSchema, getJournalSchema};

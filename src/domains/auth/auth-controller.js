@@ -16,8 +16,8 @@ class AuthController {
 
     async register(req, res) {
 
-        const { fullName, username , birthDate, password, email} = req.body;
-        const message = await AuthService.register({ fullName, username, birthDate, password, email });
+        const { fullName, username , birthDate, password, email, gender= null} = req.body;
+        const message = await AuthService.register({ fullName, username, birthDate, password, email, gender });
 
         if (!message) {
             throw Error("Failed to register");
@@ -50,9 +50,9 @@ class AuthController {
     }
 
     async updateProfile(req, res){
-        const { fullname, username, birthDate } = req.body;
+        const { fullName, username, birthDate } = req.body;
 
-        const user = await AuthService.updateProfile(req.user.user_id, { fullname, username, birthDate });
+        const user = await AuthService.updateProfile(req.user.user_id, { fullName, username, birthDate });
 
         if (!user) {
             throw Error("Failed to update user profile");

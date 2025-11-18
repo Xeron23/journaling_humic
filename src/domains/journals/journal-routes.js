@@ -18,6 +18,11 @@ class JournalRoutes extends BaseRoutes {
             authTokenMiddleware.authenticate,
             tryCatch(journalController.index)
         ]);
+        this.router.get("/admin/data", [
+            authTokenMiddleware.authenticate,
+            authTokenMiddleware.authorizeUser(["admin"]),
+            tryCatch(journalController.getAllDataJournal)
+        ]);
         this.router.get("/:journal_id", [
             authTokenMiddleware.authenticate,
             validateCredentials(journalSchema, "params"),

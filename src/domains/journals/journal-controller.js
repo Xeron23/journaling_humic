@@ -17,6 +17,7 @@ class JournalController {
     async show(req, res){
         const journal_id  =  parseInt(req.params.journal_id);
         const user_id = req.user.user_id
+
         
         const journal = await journalService.getById(user_id, journal_id);
         
@@ -28,7 +29,11 @@ class JournalController {
     
     async index(req, res){
         const user_id = req.user.user_id
-        const journal = await journalService.getAll(user_id);
+        const {page=1, limit=10, timeframe} = req.query;
+        
+        const offset = (page-1)*limit;
+        const journal = await journalService.getAll(user_id, timeframe, {offset, limit});
+
         if(!journal){
             throw Error("Failed to get journal")
         }
@@ -52,6 +57,15 @@ class JournalController {
         const journal = await journalService.delete(journal_id, user_id);
         if(!journal){
             throw Error("Failed delete journal")
+        }
+        return successResponse(res, journal);
+    }
+
+    async getAllDataJournal(req, res){
+        const {timeframe = "week"} = req.query;
+        const journal = await journalService.getAllDataJournal(timeframe);
+        if(!journal){
+            throw Error("Failed to get journal data")
         }
         return successResponse(res, journal);
     }

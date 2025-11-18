@@ -19,7 +19,7 @@ class AuthRoutes extends BaseRoutes {
         this.router.get("/verify/:token", [
             tryCatch(AuthController.verify)
         ]);
-        this.router.post("/refresh-token", [
+        this.router.post("/refresh-token", [ 
             validateCredentials(refreshTokenSchema),
             tryCatch(AuthController.refreshToken)
         ]),
