@@ -4,7 +4,7 @@ import journalController from "./journal-controller.js";
 
 import tryCatch from "../../utils/tryCatcher.js";
 import validateCredentials from "../../middlewares/validate-credentials-middleware.js";
-import { journalSchema, createJournalSchema, updateJournalSchema } from "./journal-schema.js";
+import { journalSchema, createJournalSchema, updateJournalSchema, getJournalStatsSchema } from "./journal-schema.js";
 import authTokenMiddleware from "../../middlewares/auth-token-middleware.js";
 
 class JournalRoutes extends BaseRoutes {
@@ -22,6 +22,11 @@ class JournalRoutes extends BaseRoutes {
             authTokenMiddleware.authenticate,
             authTokenMiddleware.authorizeUser(["admin"]),
             tryCatch(journalController.getAllDataJournal)
+        ]);
+        this.router.get("/stats", [
+            authTokenMiddleware.authenticate,
+            validateCredentials(getJournalStatsSchema, "query"),
+            tryCatch(journalController.getJournalStats)
         ]);
         this.router.get("/:journal_id", [
             authTokenMiddleware.authenticate,

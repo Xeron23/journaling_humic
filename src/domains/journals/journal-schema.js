@@ -55,4 +55,12 @@ const getJournalSchema = Joi.object({
     }),
 });
 
-export {journalSchema, createJournalSchema, updateJournalSchema, getJournalSchema};
+const getJournalStatsSchema = Joi.object({
+    timeframe: Joi.string().valid("week", "month").optional()
+        .messages({
+            "string.base": "Timeframe must be string",
+            "any.only": "Timeframe must be one of week or month"
+    }),
+});
+
+export {journalSchema, createJournalSchema, updateJournalSchema, getJournalSchema, getJournalStatsSchema};

@@ -69,6 +69,16 @@ class JournalController {
         }
         return successResponse(res, journal);
     }
+
+    async getJournalStats(req, res){
+        const {timeframe = "week"} = req.query;
+        const {user_id} = req.user;
+        const stats = await journalService.getStatistics(user_id, timeframe);
+        if(!stats){
+            throw Error("Failed to get journal statistics")
+        }
+        return successResponse(res, stats);
+    }
 }
 
 export default new JournalController();

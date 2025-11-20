@@ -184,6 +184,54 @@ class JournalService {
         return response.choices[0]?.message?.content?.trim() || "Maaf, aku tidak bisa memberikan respons.";
     }
 
+
+    async getStatistics(userId, timeframe) {
+        const now = new Date();
+        let where = { userId: userId };
+        let dateFrom;
+
+        if (timeframe === 'week') {
+            dateFrom = new Date(now.getFullYear(), now.getMonth(), now.getDate() - 6);
+        } else if (timeframe === 'month') {
+            dateFrom = new Date(now.getFullYear(), now.getMonth() - 1, now.getDate());
+        }
+
+        if (dateFrom) {
+            where.createdAt = {
+                gte: dateFrom,
+                lte: now
+            };
+        }
+
+        const journals = await prisma.journal.findMany({
+            where,
+            select: {
+                createdAt: true
+            }
+        });
+
+        const countByDate = {};
+        for (const j of journals) {
+            const key = j.createdAt.toISOString().slice(0, 10);
+            countByDate[key] = (countByDate[key] || 0) + 1;
+        }
+
+        const stats = [];
+        for (
+            let d = new Date(dateFrom.getFullYear(), dateFrom.getMonth(), dateFrom.getDate());
+            d <= now;
+            d.setDate(d.getDate() + 1)
+        ) {
+            const key = d.toISOString().slice(0, 10);
+            
+            stats.push({
+                date: key,
+                totalJournals: countByDate[key] || 0
+            });
+        }
+
+        return stats;
+    }
     // get all data journal for csv admin timeframe (week, months, year)
     async getAllDataJournal() {
     const users = await prisma.user.findMany({
