@@ -24,7 +24,15 @@ class AuthService {
                 throw BaseError.badRequest("Invalid credentials");
             }
         }
-
+        
+        const now = new Date();
+        await prisma.user.update({
+            where: { user_id: user.user_id },
+            data: {
+                last_login_at: user.current_login_at,
+                current_login_at: now
+            }
+        });
 
         const isMatch = await matchPassword(password, user.password);
         
@@ -160,7 +168,8 @@ class AuthService {
                 username: true,
                 role: true,
                 email: true,
-                birthDate: true
+                birthDate: true,
+                last_login_at: true,
             }
         });
 

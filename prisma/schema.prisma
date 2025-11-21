@@ -45,6 +45,8 @@ model User {
   logins     SystemLog[]
   role       Role    @default(user) 
   verifiedAt DateTime?
+  current_login_at  DateTime?
+  last_login_at     DateTime? 
   createdAt  DateTime  @default(now())
   updatedAt  DateTime  @updatedAt
 }
