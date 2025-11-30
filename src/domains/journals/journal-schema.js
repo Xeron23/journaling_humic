@@ -56,10 +56,10 @@ const getJournalSchema = Joi.object({
 });
 
 const getJournalStatsSchema = Joi.object({
-    timeframe: Joi.string().valid("week", "month").optional()
+    timeframe: Joi.string().valid("week", "month", "year").optional()
         .messages({
             "string.base": "Timeframe must be string",
-            "any.only": "Timeframe must be one of week or month"
+            "any.only": "Timeframe must be one of week or month or year"
     }),
 });
 

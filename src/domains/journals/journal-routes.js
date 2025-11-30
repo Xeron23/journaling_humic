@@ -21,6 +21,7 @@ class JournalRoutes extends BaseRoutes {
         this.router.get("/admin/data", [
             authTokenMiddleware.authenticate,
             authTokenMiddleware.authorizeUser(["admin"]),
+            validateCredentials(getJournalStatsSchema, "query"),
             tryCatch(journalController.getAllDataJournal)
         ]);
         this.router.get("/stats", [
