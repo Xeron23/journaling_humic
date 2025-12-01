@@ -57,7 +57,7 @@ model Journal {
   journal_id   Int       @id @default(autoincrement())
   user       User      @relation(fields: [userId], references: [user_id])
   userId     Int
-  title      String?
+  title      String?  
   content    String
   mood       Mood
   createdAt  DateTime  @default(now())
