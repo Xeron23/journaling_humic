@@ -6,6 +6,7 @@ import {
   GROQ_DEFAULT_MODEL,
   GROQ_DEFAULT_SETTINGS,
 } from "../../config/groqAi.js";
+import { ConvertBirthDay } from "../../utils/ageConvert.js";
 import quotesService from "../quotes/quotes-service.js";
 
 class JournalService {
@@ -288,26 +289,24 @@ class JournalService {
         },
       },
       select: {
-        fullName: true,
         email: true,
+        gender: true,
         birthDate: true,
         journals: {
           where: journalTimeFilter,
           select: {
-            journal_id: true,
             title: true,
-            content: true,
             mood: true,
-            createdAt: true,
           },
         },
       },
-    });
+    }); 
 
+    
     return users.map((u) => ({
-      fullName: u.fullName,
       email: u.email,
-      birthDate: u.birthDate,
+      gender: u.gender,
+      umur: ConvertBirthDay(u.birthDate),
       totalJournals: u.journals.length,
       journals: u.journals,
     }));
