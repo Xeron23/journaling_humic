@@ -52,6 +52,5 @@ jobs:
               --restart unless-stopped \
               -e BE_URL="${{ secrets.BE_URL }}" \
               test_journaling_humic
-            docker exec -i test_journaling_humic-server npx prisma migrate reset
             docker exec -i test_journaling_humic-server npx prisma migrate deploy
             docker exec -i test_journaling_humic-server npx prisma db seed
