@@ -23,7 +23,6 @@ console.log('🌱 Starting database seed...');
       email: "admin@example.com",
       password: await hashPassword("Admin@123"),
       role: "admin",
-      verifiedAt: new Date(),
       createdAt: new Date(),
       updatedAt: new Date(),
       birthDate: new Date('1990-01-01'),

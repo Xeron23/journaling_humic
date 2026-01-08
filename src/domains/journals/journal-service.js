@@ -7,6 +7,7 @@ import {
   GROQ_DEFAULT_SETTINGS,
 } from "../../config/groqAi.js";
 import { ConvertBirthDay } from "../../utils/ageConvert.js";
+import { addDays, dateKeyLocal, endOfDayLocal, monthKeyLocal, startOfDayLocal } from "../../utils/dateParser.js";
 import quotesService from "../quotes/quotes-service.js";
 
 class JournalService {
@@ -204,59 +205,101 @@ class JournalService {
     );
   }
 
-  async getStatistics(userId, timeframe) {
-    let where = { userId: userId };
-    const now = new Date();
-    let dateFrom;
+async getStatistics(userId, timeframe) {
+  const now = new Date();
+  const todayStart = startOfDayLocal(now);
+  const todayEnd = endOfDayLocal(now);
 
-    if (timeframe === "week") {
-      dateFrom = new Date(now);
-      dateFrom.setDate(now.getDate() - 6);
-    } else if (timeframe === "month") {
-      dateFrom = new Date(now.getFullYear(), now.getMonth(), 1);
-    } else if (timeframe === "year") {
-      dateFrom = new Date(now.getFullYear(), 0, 1);
-    }
+  let dateFrom;
+  if (timeframe === "week") {
+    dateFrom = addDays(todayStart, -6);  
+  } else if (timeframe === "month") {
+    dateFrom = new Date(now.getFullYear(), now.getMonth(), 1);  
+    dateFrom = startOfDayLocal(dateFrom);
+  } else if (timeframe === "year") {
+    dateFrom = new Date(now.getFullYear(), 0, 1); 
+    dateFrom = startOfDayLocal(dateFrom);
+  } else {
+    throw new Error("Invalid timeframe");
+  }
 
-    // Kalau mau aman, bisa cek kalau timeframe nggak valid:
-    if (!dateFrom) {
-      throw new Error("Invalid timeframe");
-    }
+  const journals = await prisma.journal.findMany({
+    where: {
+      userId,
+      createdAt: { gte: dateFrom, lte: todayEnd },
+    },
+    select: { createdAt: true },
+  });
 
-    const journals = await prisma.journal.findMany({
-      where,
-      select: {
-        createdAt: true,
-      },
-    });
-
+  if (timeframe === "week") {
     const countByDate = {};
     for (const j of journals) {
-      const key = j.createdAt.toISOString().slice(0, 10);
+      const key = dateKeyLocal(j.createdAt);
       countByDate[key] = (countByDate[key] || 0) + 1;
     }
 
     const stats = [];
-    for (
-      let d = new Date(
-        dateFrom.getFullYear(),
-        dateFrom.getMonth(),
-        dateFrom.getDate()
-      );
-      d <= now;
-      d.setDate(d.getDate() + 1)
-    ) {
-      const key = d.toISOString().slice(0, 10);
+    for (let d = new Date(dateFrom); d <= todayStart; d.setDate(d.getDate() + 1)) {
+      const key = dateKeyLocal(d);
+      stats.push({ date: key, totalJournals: countByDate[key] || 0 });
+    }
+    return stats;
+  }
+
+  if (timeframe === "month") {
+    const bucketSize = 3;
+    const base = startOfDayLocal(dateFrom);
+
+    const bucketCounts = {}; // idx -> total
+    for (const j of journals) {
+      const jd = startOfDayLocal(j.createdAt);
+      const diffDays = Math.floor((jd - base) / 86400000);
+      const idx = Math.floor(diffDays / bucketSize);
+      bucketCounts[idx] = (bucketCounts[idx] || 0) + 1;
+    }
+
+    const totalDays = Math.floor((todayStart - base) / 86400000);
+    const totalBuckets = Math.floor(totalDays / bucketSize);
+
+    const stats = [];
+    for (let idx = 0; idx <= totalBuckets; idx++) {
+      const start = addDays(base, idx * bucketSize);
+      const end = addDays(base, idx * bucketSize + (bucketSize - 1));
+      const endCapped = end > todayStart ? todayStart : end;
 
       stats.push({
-        date: key,
-        totalJournals: countByDate[key] || 0,
+        startDate: dateKeyLocal(start),
+        endDate: dateKeyLocal(endCapped),
+        totalJournals: bucketCounts[idx] || 0,
       });
     }
-    console.log(stats.length);
 
     return stats;
   }
+
+  if (timeframe === "year") {
+    const countByMonth = {};
+    for (const j of journals) {
+      const key = monthKeyLocal(j.createdAt);
+      countByMonth[key] = (countByMonth[key] || 0) + 1;
+    }
+
+    const y = now.getFullYear();
+    const stats = [];
+    for (let m = 0; m < 12; m++) {
+      const monthDate = new Date(y, m, 1);
+      const key = monthKeyLocal(monthDate); 
+      stats.push({
+        month: key,
+        totalJournals: countByMonth[key] || 0,
+      });
+    }
+
+    return stats;
+  }
+}
+
+
 
   // get all data journal for csv admin timeframe (week, months, year)
   async getAllDataJournal(timeframe) {
