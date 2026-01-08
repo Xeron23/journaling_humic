@@ -79,6 +79,16 @@ class JournalController {
         }
         return successResponse(res, stats);
     }
+
+    async getMoodStats(req, res){
+        const {timeframe = "week"} = req.query;
+        const {user_id} = req.user;
+        const stats = await journalService.getMoodByTimeframe(user_id, timeframe);
+        if(!stats){
+            throw Error("Failed to get journal mood statistics")
+        }
+        return successResponse(res, stats);
+    }
 }
 
 export default new JournalController();

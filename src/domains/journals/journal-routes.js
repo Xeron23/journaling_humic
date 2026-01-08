@@ -24,6 +24,11 @@ class JournalRoutes extends BaseRoutes {
             validateCredentials(getJournalStatsSchema, "query"),
             tryCatch(journalController.getAllDataJournal)
         ]);
+        this.router.get("/mood-stats", [
+            authTokenMiddleware.authenticate,
+            validateCredentials(getJournalStatsSchema, "query"),
+            tryCatch(journalController.getMoodStats)
+        ]);
         this.router.get("/stats", [
             authTokenMiddleware.authenticate,
             validateCredentials(getJournalStatsSchema, "query"),
