@@ -273,7 +273,7 @@ class JournalService {
     }
 
     if (timeframe === "month") {
-      const bucketSize = 3;
+      const bucketSize = 7;
       const base = startOfDayLocal(dateFrom);
 
       const bucketCounts = {}; // idx -> total
@@ -332,19 +332,17 @@ class JournalService {
 
     let dateFrom;
     if (timeframe === "week") {
-      // 7 hari: hari ini + 6 hari sebelumnya
       dateFrom = addDays(todayStart, -6);
     } else if (timeframe === "month") {
-      // dari awal bulan ini
-      dateFrom = startOfDayLocal(new Date(now.getFullYear(), now.getMonth(), 1));
+      dateFrom = startOfDayLocal(
+        new Date(now.getFullYear(), now.getMonth(), 1)
+      );
     } else if (timeframe === "year") {
-      // dari awal tahun ini
       dateFrom = startOfDayLocal(new Date(now.getFullYear(), 0, 1));
     } else {
       throw new Error("Invalid timeframe");
     }
 
-    // Ambil jurnal beserta mood pada rentang waktu
     const journals = await prisma.journal.findMany({
       where: {
         userId,
@@ -352,21 +350,6 @@ class JournalService {
       },
       select: { createdAt: true, mood: true },
     });
-
-    // Helper: cari mood dominan dari object counts
-    const pickDominant = (moodCounts) => {
-      let dominantMood = null;
-      let dominantCount = 0;
-
-      for (const [mood, count] of Object.entries(moodCounts)) {
-        if (count > dominantCount) {
-          dominantMood = mood;
-          dominantCount = count;
-        }
-      }
-
-      return { dominantMood, dominantCount };
-    };
 
     // ===== WEEK: per hari =====
     if (timeframe === "week") {
@@ -389,11 +372,11 @@ class JournalService {
       ) {
         const key = dateKeyLocal(d);
         const row = byDate[key] || { total: 0, moodCounts: {} };
-        const { dominantMood, dominantCount } = pickDominant(row.moodCounts);
+        const { dominantMood, dominantCount } = this.pickDominantMood(row.moodCounts);
 
         result.push({
-          date: key,              // x axis
-          totalMoods: row.total,  // y axis
+          date: key,
+          totalMoods: row.total, 
           dominantMood,
           dominantCount,
         });
@@ -402,12 +385,11 @@ class JournalService {
       return result;
     }
 
-    // ===== MONTH: per 3 hari =====
     if (timeframe === "month") {
-      const bucketSize = 3;
+      const bucketSize = 7;
       const base = startOfDayLocal(dateFrom);
 
-      const buckets = {}; // idx -> { total, moodCounts }
+      const buckets = {};
       for (const j of journals) {
         const jd = startOfDayLocal(j.createdAt);
         const diffDays = Math.floor((jd - base) / 86400000);
@@ -431,12 +413,12 @@ class JournalService {
         const endCapped = end > todayStart ? todayStart : end;
 
         const row = buckets[idx] || { total: 0, moodCounts: {} };
-        const { dominantMood, dominantCount } = pickDominant(row.moodCounts);
+        const { dominantMood, dominantCount } = this.pickDominantMood(row.moodCounts);
 
         result.push({
-          startDate: dateKeyLocal(start),     // x axis (range)
+          startDate: dateKeyLocal(start),
           endDate: dateKeyLocal(endCapped),
-          totalMoods: row.total,              // y axis
+          totalMoods: row.total,
           dominantMood,
           dominantCount,
         });
@@ -445,9 +427,8 @@ class JournalService {
       return result;
     }
 
-    // ===== YEAR: per bulan (Jan–Des) =====
     if (timeframe === "year") {
-      const byMonth = {}; // "YYYY-MM" -> { total, moodCounts }
+      const byMonth = {};
 
       for (const j of journals) {
         const key = monthKeyLocal(j.createdAt);
@@ -467,11 +448,11 @@ class JournalService {
         const key = monthKeyLocal(monthDate);
 
         const row = byMonth[key] || { total: 0, moodCounts: {} };
-        const { dominantMood, dominantCount } = pickDominant(row.moodCounts);
+        const { dominantMood, dominantCount } = this.pickDominantMood(row.moodCounts);
 
         result.push({
-          month: key,             // x axis
-          totalMoods: row.total,  // y axis
+          month: key, // x axis
+          totalMoods: row.total, // y axis
           dominantMood,
           dominantCount,
         });
@@ -479,9 +460,6 @@ class JournalService {
 
       return result;
     }
-
-    // fallback (harusnya tidak kepakai)
-    return [];
   }
 
   // get all data journal for csv admin timeframe (week, months, year)
