@@ -27,7 +27,8 @@ class JournalService {
         dominantCount = count;
       }
     }
-
+    console.log(dominantCount, dominantMood);
+    
     return { dominantMood, dominantCount };
   }
 
@@ -372,7 +373,7 @@ class JournalService {
       ) {
         const key = dateKeyLocal(d);
         const row = byDate[key] || { total: 0, moodCounts: {} };
-        const { dominantMood, dominantCount } = this.pickDominantMood(row.moodCounts);
+        const { dominantMood, dominantCount } = await this.pickDominantMood(row.moodCounts);
 
         result.push({
           date: key,
@@ -413,7 +414,7 @@ class JournalService {
         const endCapped = end > todayStart ? todayStart : end;
 
         const row = buckets[idx] || { total: 0, moodCounts: {} };
-        const { dominantMood, dominantCount } = this.pickDominantMood(row.moodCounts);
+        const { dominantMood, dominantCount } = await this.pickDominantMood(row.moodCounts);
 
         result.push({
           startDate: dateKeyLocal(start),
@@ -422,7 +423,7 @@ class JournalService {
           dominantMood,
           dominantCount,
         });
-      }
+      }      
 
       return result;
     }
@@ -448,11 +449,11 @@ class JournalService {
         const key = monthKeyLocal(monthDate);
 
         const row = byMonth[key] || { total: 0, moodCounts: {} };
-        const { dominantMood, dominantCount } = this.pickDominantMood(row.moodCounts);
+        const { dominantMood, dominantCount } = await this.pickDominantMood(row.moodCounts);
 
         result.push({
-          month: key, // x axis
-          totalMoods: row.total, // y axis
+          month: key,
+          totalMoods: row.total,
           dominantMood,
           dominantCount,
         });
