@@ -45,7 +45,6 @@ model User {
   quoteLogs  QuoteLog[]
   logins     SystemLog[]
   role       Role    @default(user) 
-  verifiedAt DateTime?
   current_login_at  DateTime?
   last_login_at     DateTime? 
   createdAt  DateTime  @default(now())
@@ -57,7 +56,7 @@ model Journal {
   journal_id   Int       @id @default(autoincrement())
   user       User      @relation(fields: [userId], references: [user_id])
   userId     Int
-  title      String?
+  title      String?  
   content    String
   mood       Mood
   createdAt  DateTime  @default(now())

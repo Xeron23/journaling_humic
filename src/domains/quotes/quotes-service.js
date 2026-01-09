@@ -139,10 +139,8 @@ class QuoteService {
         quotes.push(...backupQuotes);
     }
 
-    return quotes[0];
+    return quotes;
     }
-
-    // like
 }
 
 export default new QuoteService();

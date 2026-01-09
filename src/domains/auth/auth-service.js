@@ -40,21 +40,6 @@ class AuthService {
             throw BaseError.badRequest("Invalid credentials");
         }
 
-        if (!user.verifiedAt){
-            const token = generateToken(user.user_id, "5m");
-            const verificationLink = `${process.env.BE_URL}/api/v1/auth/verify/${token}`;
-            const emailHtml = generateVerifEmail(verificationLink);
-
-            sendEmail(
-                user.email,
-                "Verifikasi Email dari Test: Test Channel",
-                "Terima kasih telah mendaftar di Test: Test Channel! Untuk melanjutkan, silakan verifikasi email Anda dengan mengklik tautan berikut:",
-                emailHtml
-            );
-
-            throw BaseError.badRequest("Email not verified, Please check your email to verify your account.");
-        }
-
         const accessToken = generateToken(user.user_id, "1d");
         const refreshToken = generateToken(user.user_id, "365d");
 
@@ -108,54 +93,7 @@ class AuthService {
             throw Error("Failed to register");
         }
 
-        const token = generateToken(createdUser.user_id, "5m");
-        const verificationLink = `${process.env.BE_URL}/api/v1/auth/verify/${token}`;
-        
-        const emailHtml = generateVerifEmail(verificationLink);
-
-        sendEmail(
-                createdUser.email,
-                "Verifikasi Email dari Test: Test Channel",
-                "Terima kasih telah mendaftar di Test: Test Channel! Untuk melanjutkan, silakan verifikasi email Anda dengan mengklik tautan berikut:",
-                emailHtml
-        );
-
-        return {message: "User registered successfully. Please check your email to verify your account."};
-    }
-
-    async verify(token) {
-        const decoded = parseJWT(token);
-        
-        if (!decoded) {
-            return { status: 400, message: "Invalid token" };
-        }
-        console.log(decoded.id);
-        
-
-        const user = await  prisma.user.findUnique({
-            where: {
-                user_id: decoded.id
-            }
-        });
-
-        if (!user) {
-            return { status: 400, message: "User Not Found" }
-        }
-
-        if (user.verifiedAt){
-            return { status: 400, message: "Email already verified" };
-        }
-
-        await prisma.user.update({
-            where: {
-                user_id: user.user_id
-            },
-            data: {
-                verifiedAt: new Date()
-            }
-        });
-
-        return { status: 200, message: "Email verified successfully" };
+        return {message: "User registered successfully."};
     }
 
     async getProfile(id) {
