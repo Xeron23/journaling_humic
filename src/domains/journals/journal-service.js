@@ -69,7 +69,7 @@ class JournalService {
       category: journal.mood,
     });
 
-    const popularQuotes = quote[0].quote_id;
+    const popularQuotes = await quotesService.getById(quote[0].quote_id);
 
     const createQuoteLog = await quotesService.quoteLog({
       userId: journal.userId,
