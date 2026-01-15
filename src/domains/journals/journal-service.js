@@ -34,9 +34,32 @@ class JournalService {
 
   async create(data) {
     data.mood = await this.generateMood(data.content);
-    const journal = await prisma.journal.create({
-      data: data,
+    const user = await prisma.user.findFirst({
+      where: {
+        user_id: data.userId,
+      },
     });
+    if(data.quote){
+      await prisma.quote.create({
+        data: {
+          text: data.quote,
+          category: data.mood,
+          author: user ? user.fullName : "Unknown",
+        }
+      })
+    }
+    console.log(data);
+    
+    const journal = await prisma.journal.create({
+      data: {
+        title: data.title,
+        content: data.content,
+        mood: data.mood,
+        userId: data.userId,
+      },
+    });
+
+
     if (!journal) {
       throw Error("Failed to create journla");
     }
@@ -46,13 +69,14 @@ class JournalService {
       category: journal.mood,
     });
 
-    const popularQuotes = quote[0].quote_id;
+    const popularQuotes = quote[0];
 
     const createQuoteLog = await quotesService.quoteLog({
       userId: journal.userId,
-      quoteId: popularQuotes,
+      quoteId: popularQuotes.quote_id,
       action: "journal_assigned",
     });
+
 
     if (!createQuoteLog) {
       throw Error("Failed to create quote log for journal recomendation");

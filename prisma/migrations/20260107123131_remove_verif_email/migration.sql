@@ -5,4 +5,4 @@
 
 */
 -- AlterTable
-ALTER TABLE `user` DROP COLUMN `verifiedAt`;
+ALTER TABLE `User` DROP COLUMN `verifiedAt`;
