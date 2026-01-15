@@ -73,9 +73,10 @@ class JournalService {
 
     const createQuoteLog = await quotesService.quoteLog({
       userId: journal.userId,
-      quoteId: popularQuotes,
+      quoteId: popularQuotes.quote_id,
       action: "journal_assigned",
     });
+
 
     if (!createQuoteLog) {
       throw Error("Failed to create quote log for journal recomendation");
