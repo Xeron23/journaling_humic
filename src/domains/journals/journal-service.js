@@ -49,7 +49,12 @@ class JournalService {
       })
     }
     const journal = await prisma.journal.create({
-      data: data,
+      data: {
+        title: data.title,
+        content: data.content,
+        mood: data.mood,
+        userId: data.userId,
+      },
     });
     if (!journal) {
       throw Error("Failed to create journla");
