@@ -34,6 +34,20 @@ class JournalService {
 
   async create(data) {
     data.mood = await this.generateMood(data.content);
+    const user = await prisma.user.findFirst({
+      where: {
+        user_id: data.userId,
+      },
+    });
+    if(data.quote){
+      await prisma.quote.create({
+        data: {
+          text: data.quote,
+          category: data.mood,
+          author: user ? user.fullName : "Unknown",
+        }
+      })
+    }
     const journal = await prisma.journal.create({
       data: data,
     });

@@ -5,9 +5,9 @@ import journalService from "./journal-service.js";
 
 class JournalController {
     async create(req, res){
-        const {title, content} = req.body;
+        const {title, content, quote=null} = req.body;
         const userId = req.user.user_id;
-        const journal = await journalService.create({title, content, userId});
+        const journal = await journalService.create({title, content, userId, quote});
         if(!journal){
             throw Error("Failed create journal")
         }

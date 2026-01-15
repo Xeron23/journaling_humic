@@ -22,6 +22,10 @@ const createJournalSchema = Joi.object({
             "string.min": "Content must be at least 1 character",
             "string.base": "Content must be string"
     }),
+    quote: Joi.string().optional()
+        .messages({
+            "string.base": "Quote must be string"
+    }),
 })
 
 const updateJournalSchema = Joi.object({
