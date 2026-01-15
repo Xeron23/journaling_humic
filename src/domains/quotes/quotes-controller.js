@@ -36,7 +36,7 @@ class QuoteController {
     }
     
     async recomendation(req, res){
-        const {category} = req.body;
+        const {category='JOY'} = req.query;
         const userId = req.user.user_id;
         const quote = await quotesService.recomendation({userId, category});
         if(!quote){
