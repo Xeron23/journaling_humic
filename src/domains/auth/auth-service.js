@@ -104,6 +104,7 @@ class AuthService {
             select: {
                 user_id: true,
                 username: true,
+                fullName: true,
                 role: true,
                 email: true,
                 birthDate: true,

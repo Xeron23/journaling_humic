@@ -72,6 +72,11 @@ const profileSchema = Joi.object({
             "date.empty": "Birth date is required.",
             "date.base": "Birth date must be a valid date."
     }),
+    gender: Joi.string().valid("male", "female").optional()
+        .messages({
+            "string.base": "Gender must be string",
+            "any.only": "Gender must be one of  male, female"
+    }),
 });
 
 const changePasswordSchema = Joi.object({
