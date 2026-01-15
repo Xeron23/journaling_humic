@@ -89,6 +89,14 @@ class JournalController {
         }
         return successResponse(res, stats);
     }
+
+    async getHistoryJournal(req, res){
+        const history = await journalService.getHistoryJournals();
+        if(!history){
+            throw Error("Failed to get journal history")
+        }
+        return successResponse(res, history);
+    }
 }
 
 export default new JournalController();

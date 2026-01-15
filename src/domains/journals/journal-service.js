@@ -49,6 +49,11 @@ class JournalService {
       })
     }
     console.log(data);
+
+    const quote = await quotesService.recomendation({
+      userId: data.userId,
+      category: data.mood,
+    });
     
     const journal = await prisma.journal.create({
       data: {
@@ -56,6 +61,7 @@ class JournalService {
         content: data.content,
         mood: data.mood,
         userId: data.userId,
+        quoteId: quote[0].quote_id,
       },
     });
 
@@ -63,11 +69,6 @@ class JournalService {
     if (!journal) {
       throw Error("Failed to create journla");
     }
-
-    const quote = await quotesService.recomendation({
-      userId: journal.userId,
-      category: journal.mood,
-    });
 
     const popularQuotes = quote[0];
 
@@ -538,6 +539,32 @@ class JournalService {
       totalJournals: u.journals.length,
       journals: u.journals,
     }));
+  }
+
+  async getHistoryJournals(){
+    const journals = await prisma.journal.findMany({
+      orderBy: {
+        createdAt: 'asc',
+      },
+      select: {
+        mood: true,
+        content: true,
+        user: {
+          select: {
+            birthDate: true,
+            gender: true,
+          }
+        },
+        quote: {
+          select: {
+            quote_id: true,
+            text: true,
+            author: true
+          }
+        }
+      }
+    });
+    return journals;
   }
 }
 
