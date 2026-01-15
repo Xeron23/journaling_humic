@@ -109,6 +109,7 @@ class AuthService {
                 email: true,
                 birthDate: true,
                 last_login_at: true,
+                gender: true
             }
         });
 
