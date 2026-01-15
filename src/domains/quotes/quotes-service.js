@@ -42,7 +42,7 @@ class QuoteService {
 
     if (category) {
       return prisma.$queryRaw`
-      SELECT * FROM quote
+      SELECT * FROM Quote
       WHERE category = ${category}
       ORDER BY RAND()
       LIMIT ${take} OFFSET ${skip}
@@ -50,7 +50,7 @@ class QuoteService {
     }
 
     return prisma.$queryRaw`
-    SELECT * FROM quote
+    SELECT * FROM Quote
     ORDER BY RAND()
     LIMIT ${take} OFFSET ${skip}
   `;
