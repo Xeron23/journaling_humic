@@ -48,6 +48,8 @@ class JournalService {
         }
       })
     }
+    console.log(data);
+    
     const journal = await prisma.journal.create({
       data: {
         title: data.title,
@@ -56,6 +58,8 @@ class JournalService {
         userId: data.userId,
       },
     });
+
+
     if (!journal) {
       throw Error("Failed to create journla");
     }
