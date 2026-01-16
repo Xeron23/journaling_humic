@@ -367,13 +367,31 @@ class JournalService {
       throw new Error("Invalid timeframe");
     }
 
-    const journals = await prisma.journal.findMany({
-      where: {
-        userId,
-        createdAt: { gte: dateFrom, lte: todayEnd },
-      },
-      select: { createdAt: true, mood: true },
-    });
+    const journalWhere = {
+      userId,
+      createdAt: { gte: dateFrom, lte: todayEnd },
+    };
+
+    const [journals, totalJournals, totalQuotesShared] =
+      await prisma.$transaction([
+        prisma.journal.findMany({
+          where: journalWhere,
+          select: { createdAt: true, mood: true },
+        }),
+        prisma.journal.count({ where: journalWhere }),
+        prisma.quote.count({
+          where: {
+            journals: {
+              some: {
+                userId,
+                createdAt: { gte: dateFrom, lte: todayEnd },
+              },
+            },
+          },
+        }),
+      ]);
+
+    let data = [];
 
     // ===== WEEK: per hari =====
     if (timeframe === "week") {
@@ -388,7 +406,6 @@ class JournalService {
         byDate[key].moodCounts[mood] = (byDate[key].moodCounts[mood] || 0) + 1;
       }
 
-      const result = [];
       for (
         let d = new Date(dateFrom);
         d <= todayStart;
@@ -400,17 +417,16 @@ class JournalService {
           row.moodCounts
         );
 
-        result.push({
+        data.push({
           date: key,
           totalMoods: row.total,
           dominantMood,
           dominantCount,
         });
       }
-
-      return result;
     }
 
+    // ===== MONTH: per 7 hari =====
     if (timeframe === "month") {
       const bucketSize = 7;
       const base = startOfDayLocal(dateFrom);
@@ -432,7 +448,6 @@ class JournalService {
       const totalDays = Math.floor((todayStart - base) / 86400000);
       const totalBuckets = Math.floor(totalDays / bucketSize);
 
-      const result = [];
       for (let idx = 0; idx <= totalBuckets; idx++) {
         const start = addDays(base, idx * bucketSize);
         const end = addDays(base, idx * bucketSize + (bucketSize - 1));
@@ -443,7 +458,7 @@ class JournalService {
           row.moodCounts
         );
 
-        result.push({
+        data.push({
           startDate: dateKeyLocal(start),
           endDate: dateKeyLocal(endCapped),
           totalMoods: row.total,
@@ -451,10 +466,9 @@ class JournalService {
           dominantCount,
         });
       }
-
-      return result;
     }
 
+    // ===== YEAR: per bulan =====
     if (timeframe === "year") {
       const byMonth = {};
 
@@ -469,8 +483,6 @@ class JournalService {
       }
 
       const y = now.getFullYear();
-      const result = [];
-
       for (let m = 0; m < 12; m++) {
         const monthDate = new Date(y, m, 1);
         const key = monthKeyLocal(monthDate);
@@ -480,16 +492,21 @@ class JournalService {
           row.moodCounts
         );
 
-        result.push({
+        data.push({
           month: key,
           totalMoods: row.total,
           dominantMood,
           dominantCount,
         });
       }
-
-      return result;
     }
+
+    // return meta + data
+    return {
+      totalJournals,
+      totalQuotesShared,
+      data,
+    };
   }
 
   // get all data journal for csv admin timeframe (week, months, year)
