@@ -51,6 +51,12 @@ class JournalRoutes extends BaseRoutes {
             validateCredentials(updateJournalSchema),
             tryCatch(journalController.update)
         ]);
+        this.router.get("/history/all", [
+            authTokenMiddleware.authenticate,
+            authTokenMiddleware.authorizeUser(["admin"]),
+            validateCredentials(getJournalStatsSchema, "query"),
+            tryCatch(journalController.getHistoryJournal)
+        ]);
     }
 }
 

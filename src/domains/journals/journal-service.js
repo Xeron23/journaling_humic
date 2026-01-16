@@ -28,7 +28,7 @@ class JournalService {
       }
     }
     console.log(dominantCount, dominantMood);
-    
+
     return { dominantMood, dominantCount };
   }
 
@@ -39,35 +39,35 @@ class JournalService {
         user_id: data.userId,
       },
     });
-    if(data.quote){
+    if (data.quote) {
       await prisma.quote.create({
         data: {
           text: data.quote,
           category: data.mood,
           author: user ? user.fullName : "Unknown",
-        }
-      })
+        },
+      });
     }
     console.log(data);
-    
+
+    const quote = await quotesService.recomendation({
+      userId: data.userId,
+      category: data.mood,
+    });
+
     const journal = await prisma.journal.create({
       data: {
         title: data.title,
         content: data.content,
         mood: data.mood,
         userId: data.userId,
+        quoteId: quote[0].quote_id,
       },
     });
-
 
     if (!journal) {
       throw Error("Failed to create journla");
     }
-
-    const quote = await quotesService.recomendation({
-      userId: journal.userId,
-      category: journal.mood,
-    });
 
     const popularQuotes = quote[0];
 
@@ -76,7 +76,6 @@ class JournalService {
       quoteId: popularQuotes.quote_id,
       action: "journal_assigned",
     });
-
 
     if (!createQuoteLog) {
       throw Error("Failed to create quote log for journal recomendation");
@@ -368,13 +367,27 @@ class JournalService {
       throw new Error("Invalid timeframe");
     }
 
-    const journals = await prisma.journal.findMany({
-      where: {
-        userId,
-        createdAt: { gte: dateFrom, lte: todayEnd },
-      },
-      select: { createdAt: true, mood: true },
-    });
+    const journalWhere = {
+      userId,
+      createdAt: { gte: dateFrom, lte: todayEnd },
+    };
+
+    const [journals, totalJournals, totalQuotesShared] =
+      await prisma.$transaction([
+        prisma.journal.findMany({
+          where: journalWhere,
+          select: { createdAt: true, mood: true },
+        }),
+        prisma.journal.count({ where: journalWhere }),
+        prisma.journal.count({
+          where: {
+            ...journalWhere,
+            quoteId: { not: null },
+          },
+        }),
+      ]);
+
+    let data = [];
 
     // ===== WEEK: per hari =====
     if (timeframe === "week") {
@@ -389,7 +402,6 @@ class JournalService {
         byDate[key].moodCounts[mood] = (byDate[key].moodCounts[mood] || 0) + 1;
       }
 
-      const result = [];
       for (
         let d = new Date(dateFrom);
         d <= todayStart;
@@ -397,19 +409,20 @@ class JournalService {
       ) {
         const key = dateKeyLocal(d);
         const row = byDate[key] || { total: 0, moodCounts: {} };
-        const { dominantMood, dominantCount } = await this.pickDominantMood(row.moodCounts);
+        const { dominantMood, dominantCount } = await this.pickDominantMood(
+          row.moodCounts
+        );
 
-        result.push({
+        data.push({
           date: key,
-          totalMoods: row.total, 
+          totalMoods: row.total,
           dominantMood,
           dominantCount,
         });
       }
-
-      return result;
     }
 
+    // ===== MONTH: per 7 hari =====
     if (timeframe === "month") {
       const bucketSize = 7;
       const base = startOfDayLocal(dateFrom);
@@ -431,27 +444,27 @@ class JournalService {
       const totalDays = Math.floor((todayStart - base) / 86400000);
       const totalBuckets = Math.floor(totalDays / bucketSize);
 
-      const result = [];
       for (let idx = 0; idx <= totalBuckets; idx++) {
         const start = addDays(base, idx * bucketSize);
         const end = addDays(base, idx * bucketSize + (bucketSize - 1));
         const endCapped = end > todayStart ? todayStart : end;
 
         const row = buckets[idx] || { total: 0, moodCounts: {} };
-        const { dominantMood, dominantCount } = await this.pickDominantMood(row.moodCounts);
+        const { dominantMood, dominantCount } = await this.pickDominantMood(
+          row.moodCounts
+        );
 
-        result.push({
+        data.push({
           startDate: dateKeyLocal(start),
           endDate: dateKeyLocal(endCapped),
           totalMoods: row.total,
           dominantMood,
           dominantCount,
         });
-      }      
-
-      return result;
+      }
     }
 
+    // ===== YEAR: per bulan =====
     if (timeframe === "year") {
       const byMonth = {};
 
@@ -466,25 +479,30 @@ class JournalService {
       }
 
       const y = now.getFullYear();
-      const result = [];
-
       for (let m = 0; m < 12; m++) {
         const monthDate = new Date(y, m, 1);
         const key = monthKeyLocal(monthDate);
 
         const row = byMonth[key] || { total: 0, moodCounts: {} };
-        const { dominantMood, dominantCount } = await this.pickDominantMood(row.moodCounts);
+        const { dominantMood, dominantCount } = await this.pickDominantMood(
+          row.moodCounts
+        );
 
-        result.push({
+        data.push({
           month: key,
           totalMoods: row.total,
           dominantMood,
           dominantCount,
         });
       }
-
-      return result;
     }
+
+    // return meta + data
+    return {
+      totalJournals,
+      totalQuotesShared,
+      data,
+    };
   }
 
   // get all data journal for csv admin timeframe (week, months, year)
@@ -538,6 +556,62 @@ class JournalService {
       totalJournals: u.journals.length,
       journals: u.journals,
     }));
+  }
+
+  async getHistoryJournals(timeframe) {
+    let where = {};
+    let now = new Date();
+    if (timeframe === "week") {
+      const dateFrom = new Date(
+        now.getFullYear(),
+        now.getMonth(),
+        now.getDate() - 7
+      );
+      where.createdAt = { gte: dateFrom };
+    }
+
+    if (timeframe === "month") {
+      const dateFrom = new Date(
+        now.getFullYear(),
+        now.getMonth() - 1,
+        now.getDate()
+      );
+      where.createdAt = { gte: dateFrom };
+    }
+
+    if (timeframe === "year") {
+      const dateFrom = new Date(
+        now.getFullYear() - 1,
+        now.getMonth(),
+        now.getDate()
+      );
+      where.createdAt = { gte: dateFrom };
+    }
+
+    const journals = await prisma.journal.findMany({
+      where,
+      orderBy: {
+        createdAt: "asc",
+      },
+      select: {
+        mood: true,
+        content: true,
+        user: {
+          select: {
+            birthDate: true,
+            gender: true,
+          },
+        },
+        quote: {
+          select: {
+            quote_id: true,
+            text: true,
+            author: true,
+          },
+        },
+      },
+    });
+    return journals;
   }
 }
 
