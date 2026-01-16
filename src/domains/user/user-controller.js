@@ -3,7 +3,8 @@ import { successResponse } from "../../utils/response.js";
 
 class UserController {
     async getAllUsers(req, res){
-        const users =  await userService.getAllUser();
+        const {timeframe="week"} = req.query;
+        const users =  await userService.getAllUser(timeframe);
         return successResponse(res, users);
     }
 }

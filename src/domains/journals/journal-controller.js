@@ -91,7 +91,8 @@ class JournalController {
     }
 
     async getHistoryJournal(req, res){
-        const history = await journalService.getHistoryJournals();
+        const {timeframe = "week"} = req.query;
+        const history = await journalService.getHistoryJournals(timeframe);
         if(!history){
             throw Error("Failed to get journal history")
         }

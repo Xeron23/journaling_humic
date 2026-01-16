@@ -28,7 +28,7 @@ class JournalService {
       }
     }
     console.log(dominantCount, dominantMood);
-    
+
     return { dominantMood, dominantCount };
   }
 
@@ -39,14 +39,14 @@ class JournalService {
         user_id: data.userId,
       },
     });
-    if(data.quote){
+    if (data.quote) {
       await prisma.quote.create({
         data: {
           text: data.quote,
           category: data.mood,
           author: user ? user.fullName : "Unknown",
-        }
-      })
+        },
+      });
     }
     console.log(data);
 
@@ -54,7 +54,7 @@ class JournalService {
       userId: data.userId,
       category: data.mood,
     });
-    
+
     const journal = await prisma.journal.create({
       data: {
         title: data.title,
@@ -64,7 +64,6 @@ class JournalService {
         quoteId: quote[0].quote_id,
       },
     });
-
 
     if (!journal) {
       throw Error("Failed to create journla");
@@ -77,7 +76,6 @@ class JournalService {
       quoteId: popularQuotes.quote_id,
       action: "journal_assigned",
     });
-
 
     if (!createQuoteLog) {
       throw Error("Failed to create quote log for journal recomendation");
@@ -398,11 +396,13 @@ class JournalService {
       ) {
         const key = dateKeyLocal(d);
         const row = byDate[key] || { total: 0, moodCounts: {} };
-        const { dominantMood, dominantCount } = await this.pickDominantMood(row.moodCounts);
+        const { dominantMood, dominantCount } = await this.pickDominantMood(
+          row.moodCounts
+        );
 
         result.push({
           date: key,
-          totalMoods: row.total, 
+          totalMoods: row.total,
           dominantMood,
           dominantCount,
         });
@@ -439,7 +439,9 @@ class JournalService {
         const endCapped = end > todayStart ? todayStart : end;
 
         const row = buckets[idx] || { total: 0, moodCounts: {} };
-        const { dominantMood, dominantCount } = await this.pickDominantMood(row.moodCounts);
+        const { dominantMood, dominantCount } = await this.pickDominantMood(
+          row.moodCounts
+        );
 
         result.push({
           startDate: dateKeyLocal(start),
@@ -448,7 +450,7 @@ class JournalService {
           dominantMood,
           dominantCount,
         });
-      }      
+      }
 
       return result;
     }
@@ -474,7 +476,9 @@ class JournalService {
         const key = monthKeyLocal(monthDate);
 
         const row = byMonth[key] || { total: 0, moodCounts: {} };
-        const { dominantMood, dominantCount } = await this.pickDominantMood(row.moodCounts);
+        const { dominantMood, dominantCount } = await this.pickDominantMood(
+          row.moodCounts
+        );
 
         result.push({
           month: key,
@@ -541,10 +545,40 @@ class JournalService {
     }));
   }
 
-  async getHistoryJournals(){
+  async getHistoryJournals(timeframe) {
+    let where = {};
+    let now = new Date();
+    if (timeframe === "week") {
+      const dateFrom = new Date(
+        now.getFullYear(),
+        now.getMonth(),
+        now.getDate() - 7
+      );
+      where.createdAt = { gte: dateFrom };
+    }
+
+    if (timeframe === "month") {
+      const dateFrom = new Date(
+        now.getFullYear(),
+        now.getMonth() - 1,
+        now.getDate()
+      );
+      where.createdAt = { gte: dateFrom };
+    }
+
+    if (timeframe === "year") {
+      const dateFrom = new Date(
+        now.getFullYear() - 1,
+        now.getMonth(),
+        now.getDate()
+      );
+      where.createdAt = { gte: dateFrom };
+    }
+
     const journals = await prisma.journal.findMany({
+      where,
       orderBy: {
-        createdAt: 'asc',
+        createdAt: "asc",
       },
       select: {
         mood: true,
@@ -553,16 +587,16 @@ class JournalService {
           select: {
             birthDate: true,
             gender: true,
-          }
+          },
         },
         quote: {
           select: {
             quote_id: true,
             text: true,
-            author: true
-          }
-        }
-      }
+            author: true,
+          },
+        },
+      },
     });
     return journals;
   }
