@@ -379,14 +379,10 @@ class JournalService {
           select: { createdAt: true, mood: true },
         }),
         prisma.journal.count({ where: journalWhere }),
-        prisma.quote.count({
+        prisma.journal.count({
           where: {
-            journals: {
-              some: {
-                userId,
-                createdAt: { gte: dateFrom, lte: todayEnd },
-              },
-            },
+            ...journalWhere,
+            quoteId: { not: null },
           },
         }),
       ]);
