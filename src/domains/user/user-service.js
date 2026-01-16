@@ -31,6 +31,7 @@ class UserService {
       );
       where.createdAt = { gte: dateFrom };
     }
+    where.role = "user";
 
     const users = await prisma.user.findMany({
       where,
