@@ -93,12 +93,12 @@ class AuthController {
         const response = await AuthService.verifyResetPassword(token);
 
         if (response.status !== 200) {
-            return res.redirect(`${process.env.FE_URL}/reset-password?verify=failed&message=${response.message}`);
+            return res.redirect(`${process.env.FE_URL}/change-password?verify=failed&message=${response.message}`);
         }
         console.log(response);
         
 
-        return res.redirect(`${process.env.FE_URL}/reset-password?verify=success&token=${response.data}`);
+        return res.redirect(`${process.env.FE_URL}/change-password?verify=success&token=${response.data}`);
     }
 
     async resetPassword(req, res){
