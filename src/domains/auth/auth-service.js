@@ -220,7 +220,7 @@ class AuthService {
             throw BaseError.notFound("user not found");
         }
 
-        const token = generateToken(user.user_id, "5m");
+        const token = generateToken(user.user_id, "30m");
             const verificationLink = `${process.env.BE_URL}/api/v1/auth/verify-reset-password/${token}`;
             console.log("link: ", verificationLink);
         
