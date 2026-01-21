@@ -64,10 +64,10 @@ DATABASE_URL="mysql://root@localhost:3306/mood_journal_app"
 EMAIL_USERNAME=
 EMAIL_PASSWORD=
 JWT_SECRET=
-PORT="4002"
+PORT="4001"
   
 FE_URL="http://localhost:5173"
-BE_URL="http://localhost:4002"
+BE_URL="http://localhost:4001"
 GROQ_API_KEY=
 </code></pre>
 
