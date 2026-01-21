@@ -66,8 +66,8 @@ EMAIL_PASSWORD=
 JWT_SECRET=
 PORT="4002"
   
-FE_URL=
-BE_URL="http://localhost:3002"
+FE_URL="http://localhost:5173"
+BE_URL="http://localhost:4002"
 GROQ_API_KEY=
 </code></pre>
 
