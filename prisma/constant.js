@@ -1,735 +1,620 @@
 const quotes = [
-  // MOTIVATED
-  { category: 'MOTIVATED', text: "Don't watch the clock; do what it does. Keep going.", author: 'Sam Levenson' },
-  { category: 'MOTIVATED', text: 'Push yourself, because no one else is going to do it for you.', author: 'Unknown' },
-  { category: 'MOTIVATED', text: 'Success is what happens after you have survived all your mistakes.', author: 'Anora Lee' },
-  { category: 'MOTIVATED', text: 'Start where you are. Use what you have. Do what you can.', author: 'Arthur Ashe' },
-  { category: 'MOTIVATED', text: 'Discipline is choosing between what you want now and what you want most.', author: 'Abraham Lincoln' },
+  // ADMIRATION
+  { category: 'ADMIRATION', text: "Greatness is built by those who keep going even when no one is watching.", author: "Unknown" },
+  { category: 'ADMIRATION', text: "Some people inspire not by words, but simply by the way they live.", author: "Liora Hale" },
+  { category: 'ADMIRATION', text: "Admiration is the silent applause of a grateful heart.", author: "Ayla Winters" },
+  { category: 'ADMIRATION', text: "Those who shine from within don’t need a spotlight.", author: "Unknown" },
+  { category: 'ADMIRATION', text: "The strongest souls are often the gentlest ones.", author: "Elara Stone" },
+  { category: 'ADMIRATION', text: "Courage is not loud—it’s the quiet strength that keeps going.", author: "Unknown" },
+  { category: 'ADMIRATION', text: "To admire someone is to recognize the beauty of what’s possible.", author: "Soren Vale" },
+  { category: 'ADMIRATION', text: "There are people whose presence feels like a reminder that goodness still exists.", author: "Unknown" },
+  { category: 'ADMIRATION', text: "Admiration grows from witnessing consistency, not perfection.", author: "Mira Dawn" },
+  { category: 'ADMIRATION', text: "Those who lift others rise higher than they know.", author: "Unknown" },
+  { category: 'ADMIRATION', text: "Respect is earned, but admiration is inspired.", author: "Evan Cross" },
+  { category: 'ADMIRATION', text: "The best kind of people make you want to become better without saying a word.", author: "Unknown" },
+  { category: 'ADMIRATION', text: "To admire is to celebrate the light in someone else without dimming your own.", author: "Rhea Sol" },
+  { category: 'ADMIRATION', text: "Heroes are not always the ones who save the world—they’re often the ones who save hope.", author: "Unknown" },
+  { category: 'ADMIRATION', text: "The most admirable hearts are those that keep giving, even when tired.", author: "Isla Thorne" },
+  { category: 'ADMIRATION', text: "Strength wrapped in kindness is something truly worth admiring.", author: "Unknown" },
+  { category: 'ADMIRATION', text: "Admiration comes naturally to those who see the beauty in effort.", author: "Nora Wills" },
+  { category: 'ADMIRATION', text: "Some people inspire growth simply by being themselves.", author: "Unknown" },
+  { category: 'ADMIRATION', text: "Gratitude becomes admiration when we see the heart behind the action.", author: "Eira Bloom" },
+  { category: 'ADMIRATION', text: "The world remembers actions more than appearances—be admirable in what you do.", author: "Unknown" },
 
-  // HAPPY
-  { category: 'HAPPY', text: 'Happiness is not something ready made. It comes from your own actions.', author: 'Dalai Lama' },
-  { category: 'HAPPY', text: 'The most wasted of all days is one without laughter.', author: 'E.E. Cummings' },
-  { category: 'HAPPY', text: 'Smile, and let the world wonder why.', author: 'Unknown' },
-  { category: 'HAPPY', text: 'Happiness depends upon ourselves.', author: 'Aristotle' },
-  { category: 'HAPPY', text: 'The secret of being happy is accepting where you are in life and making the most out of every day.', author: 'Unknown' },
+    // AMUSEMENT
+  { category: 'AMUSEMENT', text: "Life is too short not to laugh at the awkward moments.", author: "Unknown" },
+  { category: 'AMUSEMENT', text: "If laughter is the best medicine, then chaos is my pharmacy.", author: "Rin Hale" },
+  { category: 'AMUSEMENT', text: "Sometimes life throws lemons, sometimes it just throws plot twists for fun.", author: "Unknown" },
+  { category: 'AMUSEMENT', text: "The best stories start with 'You won’t believe what just happened…'", author: "Eli Snow" },
+  { category: 'AMUSEMENT', text: "A good laugh is like hitting the refresh button on your soul.", author: "Unknown" },
+  { category: 'AMUSEMENT', text: "Never underestimate the power of a silly moment to rescue a serious day.", author: "Lara Wynn" },
+  { category: 'AMUSEMENT', text: "If you can laugh at it, you can survive it.", author: "Unknown" },
+  { category: 'AMUSEMENT', text: "Even the universe has a sense of humor—just look at Mondays.", author: "Kai Turner" },
+  { category: 'AMUSEMENT', text: "The funniest moments usually start with 'I swear this wasn’t planned…'", author: "Unknown" },
+  { category: 'AMUSEMENT', text: "Sometimes the only thing you can do is laugh and keep going.", author: "Mina Vale" },
+  { category: 'AMUSEMENT', text: "A little joke can turn an ordinary day into a memorable one.", author: "Unknown" },
+  { category: 'AMUSEMENT', text: "You know it’s a good day when you start laughing at your own thoughts.", author: "Drew Collins" },
+  { category: 'AMUSEMENT', text: "Life gets easier when you stop taking yourself too seriously.", author: "Unknown" },
+  { category: 'AMUSEMENT', text: "Some moments are priceless—especially the ridiculous ones.", author: "Aria Bloom" },
+  { category: 'AMUSEMENT', text: "Never let a day pass without finding at least one thing to smile at.", author: "Unknown" },
+  { category: 'AMUSEMENT', text: "A sense of humor is like a superpower—use it wisely.", author: "Theo Marsh" },
+  { category: 'AMUSEMENT', text: "Laughter: the soundtrack of not giving up.", author: "Unknown" },
+  { category: 'AMUSEMENT', text: "The best memories are always the ones you didn’t plan to be funny.", author: "Lio Arden" },
+  { category: 'AMUSEMENT', text: "Sometimes life is a mess—thank goodness it’s also hilarious.", author: "Unknown" },
+  { category: 'AMUSEMENT', text: "If life were perfect, it wouldn’t be nearly as entertaining.", author: "Evan Sol" },
 
-  // SAD
-  { category: 'SAD', text: 'Tears come from the heart and not from the brain.', author: 'Leonardo da Vinci' },
-  { category: 'SAD', text: 'Heavy hearts, like heavy clouds in the sky, are best relieved by the letting of a little water.', author: 'Christopher Morley' },
-  { category: 'SAD', text: 'Sadness flies away on the wings of time.', author: 'Jean de La Fontaine' },
-  { category: 'SAD', text: 'Behind every sweet smile, there is a bitter sadness that no one can ever see and feel.', author: 'Tupac Shakur' },
-  { category: 'SAD', text: 'The word “happy” would lose its meaning if it were not balanced by sadness.', author: 'Carl Jung' },
+    // ANGER
+  { category: 'ANGER', text: "Anger is a signal, not a solution. Listen to it, but don't let it drive.", author: "Unknown" },
+  { category: 'ANGER', text: "Even the calmest ocean has storms—your feelings are no different.", author: "Rhea Sol" },
+  { category: 'ANGER', text: "Sometimes anger is simply your heart saying ‘enough’.", author: "Unknown" },
+  { category: 'ANGER', text: "What you do with your anger defines you more than the anger itself.", author: "Damon Vale" },
+  { category: 'ANGER', text: "Let your anger burn the excuses, not the bridges.", author: "Unknown" },
+  { category: 'ANGER', text: "When anger rises, pause—your future self will thank you.", author: "Ayla Winters" },
+  { category: 'ANGER', text: "Anger is energy; choose wisely where you release it.", author: "Unknown" },
+  { category: 'ANGER', text: "A moment of anger can undo years of patience—protect your peace.", author: "Elara Stone" },
+  { category: 'ANGER', text: "Don’t let anger turn you into someone you’re not proud of.", author: "Unknown" },
+  { category: 'ANGER', text: "The fire inside you can destroy or refine—choose to be refined.", author: "Soren Vale" },
+  { category: 'ANGER', text: "People often regret what they say in anger, not what they felt.", author: "Unknown" },
+  { category: 'ANGER', text: "Being angry doesn't make you weak; losing control does.", author: "Kai Turner" },
+  { category: 'ANGER', text: "Don’t let anger clip the wings of your wisdom.", author: "Unknown" },
+  { category: 'ANGER', text: "It’s okay to feel angry—just don’t let it settle in your heart.", author: "Mira Dawn" },
+  { category: 'ANGER', text: "Your anger is trying to protect you; teach it a better way.", author: "Unknown" },
+  { category: 'ANGER', text: "When emotions run high, let your choices stay grounded.", author: "Isla Thorne" },
+  { category: 'ANGER', text: "Anger is loud, but clarity whispers—listen to the whisper.", author: "Unknown" },
+  { category: 'ANGER', text: "Not every battle deserves the fire inside you.", author: "Evan Cross" },
+  { category: 'ANGER', text: "Breathe. You can’t grip wisdom with clenched fists.", author: "Unknown" },
+  { category: 'ANGER', text: "Use anger to build boundaries, not walls.", author: "Nora Wills" },
 
-  // ANGRY
-  { category: 'ANGRY', text: 'For every minute you remain angry, you give up sixty seconds of peace of mind.', author: 'Ralph Waldo Emerson' },
-  { category: 'ANGRY', text: 'Anger is an acid that can do more harm to the vessel in which it is stored than to anything on which it is poured.', author: 'Mark Twain' },
-  { category: 'ANGRY', text: 'Speak when you are angry and you will make the best speech you will ever regret.', author: 'Ambrose Bierce' },
-  { category: 'ANGRY', text: 'Anger doesn’t solve anything. It builds nothing, but it can destroy everything.', author: 'Thomas Jefferson' },
-  { category: 'ANGRY', text: 'Never do anything when you are in a temper, for you will do everything wrong.', author: 'Baltasar Gracian' },
+    // ANNOYANCE
+  { category: 'ANNOYANCE', text: "Annoyance is your mind saying ‘this needs to change’.", author: "Unknown" },
+  { category: 'ANNOYANCE', text: "Some days everything feels like a test—and the test keeps adding bonus questions.", author: "Rhea Sol" },
+  { category: 'ANNOYANCE', text: "If it annoys you, it’s probably nudging you to create better boundaries.", author: "Unknown" },
+  { category: 'ANNOYANCE', text: "Little things pile up quickly; give yourself space to breathe.", author: "Ayla Winters" },
+  { category: 'ANNOYANCE', text: "Being annoyed doesn’t mean you're wrong—it means you're human.", author: "Unknown" },
+  { category: 'ANNOYANCE', text: "Not everything deserves your reaction; silence is sometimes the best clapback.", author: "Elara Stone" },
+  { category: 'ANNOYANCE', text: "When everything gets on your nerves, it's a sign you need a moment, not a meltdown.", author: "Unknown" },
+  { category: 'ANNOYANCE', text: "Your patience isn’t gone—you just need a quiet reboot.", author: "Kai Turner" },
+  { category: 'ANNOYANCE', text: "Sometimes people aren’t annoying—you’re just tired.", author: "Unknown" },
+  { category: 'ANNOYANCE', text: "Annoyance is the universe reminding you that you're overdue for rest.", author: "Mira Dawn" },
+  { category: 'ANNOYANCE', text: "If it keeps irritating you, it's either a lesson or a boundary waiting to happen.", author: "Unknown" },
+  { category: 'ANNOYANCE', text: "Not everything that bothers you deserves a reaction—save your energy.", author: "Soren Vale" },
+  { category: 'ANNOYANCE', text: "When the world feels loud, your patience becomes priceless.", author: "Unknown" },
+  { category: 'ANNOYANCE', text: "You’re not dramatic; some things really are that annoying.", author: "Isla Thorne" },
+  { category: 'ANNOYANCE', text: "Take a deep breath—your peace is more important than the irritation.", author: "Unknown" },
+  { category: 'ANNOYANCE', text: "Annoyance is temporary; acting on it is permanent.", author: "Evan Cross" },
+  { category: 'ANNOYANCE', text: "Sometimes all you need is five minutes of silence to reset the entire day.", author: "Unknown" },
+  { category: 'ANNOYANCE', text: "Even small frustrations deserve gentle handling—especially from yourself.", author: "Liora Hale" },
+  { category: 'ANNOYANCE', text: "If it keeps bothering you, it's time for either a talk or a timeout.", author: "Unknown" },
+  { category: 'ANNOYANCE', text: "Your peace matters more than your irritation—let the little things go.", author: "Nora Wills" },
+
+    // APPROVAL
+  { category: 'APPROVAL', text: "You’ve done well—give yourself the credit you deserve.", author: "Unknown" },
+  { category: 'APPROVAL', text: "Sometimes the best approval is the one that comes from within.", author: "Rhea Sol" },
+  { category: 'APPROVAL', text: "Recognize your progress; it didn’t happen by accident.", author: "Unknown" },
+  { category: 'APPROVAL', text: "You don’t need applause to validate your growth—your effort is enough.", author: "Ayla Winters" },
+  { category: 'APPROVAL', text: "Be proud of how far you've come, even if no one sees the journey.", author: "Unknown" },
+  { category: 'APPROVAL', text: "Good choices compound—keep choosing what aligns with your values.", author: "Elara Stone" },
+  { category: 'APPROVAL', text: "Approval from others fades; approval of yourself lasts.", author: "Unknown" },
+  { category: 'APPROVAL', text: "Acknowledge your wins, even the small ones—they matter.", author: "Liora Hale" },
+  { category: 'APPROVAL', text: "You handled it well—don’t underestimate your own wisdom.", author: "Unknown" },
+  { category: 'APPROVAL', text: "Every step forward is worth celebrating.", author: "Kai Turner" },
+  { category: 'APPROVAL', text: "Your consistency is admirable—keep going.", author: "Unknown" },
+  { category: 'APPROVAL', text: "Give yourself permission to feel proud.", author: "Mira Dawn" },
+  { category: 'APPROVAL', text: "You made the right call—trust your instincts more often.", author: "Unknown" },
+  { category: 'APPROVAL', text: "Good work speaks quietly, but its impact echoes.", author: "Soren Vale" },
+  { category: 'APPROVAL', text: "Don’t rush past your accomplishments; honor them.", author: "Unknown" },
+  { category: 'APPROVAL', text: "You’re doing better than you think—pause and acknowledge it.", author: "Isla Thorne" },
+  { category: 'APPROVAL', text: "Validation from inside is stronger than applause from outside.", author: "Unknown" },
+  { category: 'APPROVAL', text: "Trust that your efforts are guiding you toward something meaningful.", author: "Nora Wills" },
+  { category: 'APPROVAL', text: "You’ve earned this moment—let yourself feel it.", author: "Unknown" },
+  { category: 'APPROVAL', text: "You don't need to be perfect to be proud—only honest in your effort.", author: "Evan Cross" },
+
+    // CARING
+  { category: 'CARING', text: "Caring doesn’t make you weak; it makes you human.", author: "Unknown" },
+  { category: 'CARING', text: "A small act of kindness can echo louder than a thousand words.", author: "Rhea Sol" },
+  { category: 'CARING', text: "Sometimes the most powerful thing you can do is simply be there.", author: "Unknown" },
+  { category: 'CARING', text: "Care is shown more in actions than promises.", author: "Ayla Winters" },
+  { category: 'CARING', text: "Your kindness is not forgotten, even when it goes unspoken.", author: "Unknown" },
+  { category: 'CARING', text: "A gentle heart can change someone’s entire day.", author: "Elara Stone" },
+  { category: 'CARING', text: "Being caring is a strength—never hide it.", author: "Unknown" },
+  { category: 'CARING', text: "The world needs more warm hearts and patient souls.", author: "Mira Dawn" },
+  { category: 'CARING', text: "Care doesn’t always need words—sometimes presence is enough.", author: "Unknown" },
+  { category: 'CARING', text: "Kindness costs nothing but gives everything.", author: "Liora Hale" },
+  { category: 'CARING', text: "A little compassion can make a heavy burden feel lighter.", author: "Unknown" },
+  { category: 'CARING', text: "When you care, you create ripples you may never see.", author: "Isla Thorne" },
+  { category: 'CARING', text: "You can be soft and strong at the same time.", author: "Unknown" },
+  { category: 'CARING', text: "A caring heart hears what words don’t say.", author: "Soren Vale" },
+  { category: 'CARING', text: "The world becomes kinder every time you choose empathy.", author: "Unknown" },
+  { category: 'CARING', text: "Never underestimate the impact of simple care.", author: "Kai Turner" },
+  { category: 'CARING', text: "Care deeply, but remember to care for yourself too.", author: "Unknown" },
+  { category: 'CARING', text: "A touch of kindness can change the direction of an entire life.", author: "Nora Wills" },
+  { category: 'CARING', text: "Your care is a gift—share it wisely, not endlessly.", author: "Unknown" },
+  { category: 'CARING', text: "Sometimes caring is quiet, but its impact is loud.", author: "Evan Cross" },
+
+    // CONFUSION
+  { category: 'CONFUSION', text: "It’s okay to not understand everything right now—clarity comes in pieces.", author: "Unknown" },
+  { category: 'CONFUSION', text: "Confusion is the first step toward learning something new.", author: "Rhea Sol" },
+  { category: 'CONFUSION', text: "Feeling lost doesn’t mean you’re going the wrong way—it means you’re exploring.", author: "Unknown" },
+  { category: 'CONFUSION', text: "Sometimes the mind needs chaos before it discovers its own order.", author: "Ayla Winters" },
+  { category: 'CONFUSION', text: "It’s normal to be confused—life doesn’t hand out instructions.", author: "Unknown" },
+  { category: 'CONFUSION', text: "Your confusion today may be tomorrow’s understanding.", author: "Elara Stone" },
+  { category: 'CONFUSION', text: "Not knowing everything doesn’t make you weak; it makes you real.", author: "Unknown" },
+  { category: 'CONFUSION', text: "When nothing makes sense, pause—sometimes clarity hides in stillness.", author: "Mira Dawn" },
+  { category: 'CONFUSION', text: "Confusion isn’t failure; it’s growth in disguise.", author: "Unknown" },
+  { category: 'CONFUSION', text: "The fog will lift—trust your steps even when you can’t see far.", author: "Kai Turner" },
+  { category: 'CONFUSION', text: "Some questions take time to answer. Be patient with your process.", author: "Unknown" },
+  { category: 'CONFUSION', text: "Even the brightest minds get confused—keep going.", author: "Liora Hale" },
+  { category: 'CONFUSION', text: "Confusion means your brain is rearranging itself for something bigger.", author: "Unknown" },
+  { category: 'CONFUSION', text: "When everything feels unclear, your intuition becomes your map.", author: "Soren Vale" },
+  { category: 'CONFUSION', text: "Being confused doesn’t mean you’re stuck—it means you’re shifting.", author: "Unknown" },
+  { category: 'CONFUSION', text: "You won’t be confused forever—clarity always finds its moment.", author: "Isla Thorne" },
+  { category: 'CONFUSION', text: "Uncertainty is uncomfortable, but it’s also honest.", author: "Unknown" },
+  { category: 'CONFUSION', text: "You’re allowed to be unsure—life isn’t a straight line.", author: "Nora Wills" },
+  { category: 'CONFUSION', text: "Confusion is the gateway between what you knew and what you’re about to learn.", author: "Unknown" },
+  { category: 'CONFUSION', text: "Even in confusion, you’re moving—trust the direction your heart leans toward.", author: "Evan Cross" },
+
+  { category: 'CURIOSITY', text: "Curiosity is the spark that turns questions into adventures.", author: "Unknown" },
+  { category: 'CURIOSITY', text: "The world opens to those who dare to wonder.", author: "Liora Hale" },
+  { category: 'CURIOSITY', text: "Every answer begins with a brave question.", author: "Unknown" },
+  { category: 'CURIOSITY', text: "Curiosity is a quiet voice saying, 'Look closer.'", author: "Ayla Winters" },
+  { category: 'CURIOSITY', text: "Let curiosity be your compass—it never stops pointing forward.", author: "Unknown" },
+  { category: 'CURIOSITY', text: "A curious mind is never truly bored.", author: "Rhea Sol" },
+  { category: 'CURIOSITY', text: "Wonder is the beginning of wisdom.", author: "Unknown" },
+  { category: 'CURIOSITY', text: "Follow your questions—they know the way.", author: "Soren Vale" },
+  { category: 'CURIOSITY', text: "Curiosity is the heartbeat of discovery.", author: "Unknown" },
+  { category: 'CURIOSITY', text: "What if is the gateway to everything new.", author: "Mira Dawn" },
+  { category: 'CURIOSITY', text: "Let your mind wander; it might find something brilliant.", author: "Unknown" },
+  { category: 'CURIOSITY', text: "Curiosity is the courage to not know, but still explore.", author: "Elara Stone" },
+  { category: 'CURIOSITY', text: "Every new idea starts as a curious whisper.", author: "Unknown" },
+  { category: 'CURIOSITY', text: "Ask questions even when answers feel far away.", author: "Kai Turner" },
+  { category: 'CURIOSITY', text: "A curious heart sees possibilities where others see walls.", author: "Unknown" },
+  { category: 'CURIOSITY', text: "Seek more, fear less.", author: "Isla Thorne" },
+  { category: 'CURIOSITY', text: "Curiosity welcomes growth into your life.", author: "Unknown" },
+  { category: 'CURIOSITY', text: "Sometimes all you need is the courage to explore the unknown.", author: "Nora Wills" },
+  { category: 'CURIOSITY', text: "Curiosity is the fuel for a mind in motion.", author: "Unknown" },
+  { category: 'CURIOSITY', text: "Stay curious—it keeps your world alive.", author: "Evan Cross" },
+
+  { category: 'DESIRE', text: "Desire is the spark that turns dreams into plans.", author: "Unknown" },
+  { category: 'DESIRE', text: "What you truly want reveals who you truly are.", author: "Rhea Sol" },
+  { category: 'DESIRE', text: "Let your desires guide your ambition, not your doubt.", author: "Unknown" },
+  { category: 'DESIRE', text: "Desire is the beginning of every journey worth taking.", author: "Ayla Winters" },
+  { category: 'DESIRE', text: "When you want something deeply, the path appears.", author: "Unknown" },
+  { category: 'DESIRE', text: "Desire is the whisper of your future calling you forward.", author: "Elara Stone" },
+  { category: 'DESIRE', text: "Follow the fire inside you—it knows where you're meant to go.", author: "Unknown" },
+  { category: 'DESIRE', text: "Your desires are not random; they're maps.", author: "Liora Hale" },
+  { category: 'DESIRE', text: "A strong desire turns obstacles into stepping stones.", author: "Unknown" },
+  { category: 'DESIRE', text: "Desire pushes you where comfort never will.", author: "Kai Turner" },
+  { category: 'DESIRE', text: "Let your heart crave boldly.", author: "Unknown" },
+  { category: 'DESIRE', text: "Desire is the root of momentum.", author: "Soren Vale" },
+  { category: 'DESIRE', text: "The stronger the desire, the clearer the direction.", author: "Unknown" },
+  { category: 'DESIRE', text: "Your deepest desires hold your greatest truths.", author: "Mira Dawn" },
+  { category: 'DESIRE', text: "Let yourself want more—growth begins with desire.", author: "Unknown" },
+  { category: 'DESIRE', text: "Desire is the art of seeing possibility in the unknown.", author: "Isla Thorne" },
+  { category: 'DESIRE', text: "Anything desired deeply becomes worth the effort.", author: "Unknown" },
+  { category: 'DESIRE', text: "Don’t ignore the things your soul keeps reaching for.", author: "Nora Wills" },
+  { category: 'DESIRE', text: "Desire shapes destiny.", author: "Unknown" },
+  { category: 'DESIRE', text: "The heart knows what the mind hesitates to admit.", author: "Evan Cross" },
+
+  { category: 'DISAPPOINTMENT', text: "Disappointment is a pause, not the end.", author: "Unknown" },
+  { category: 'DISAPPOINTMENT', text: "Even broken plans make space for better ones.", author: "Rhea Sol" },
+  { category: 'DISAPPOINTMENT', text: "It’s okay to feel disappointed—just don’t unpack there.", author: "Unknown" },
+  { category: 'DISAPPOINTMENT', text: "Sometimes the fall teaches what the climb couldn’t.", author: "Ayla Winters" },
+  { category: 'DISAPPOINTMENT', text: "Disappointment is proof that you cared.", author: "Unknown" },
+  { category: 'DISAPPOINTMENT', text: "Not every ‘no’ is a defeat; some are redirections.", author: "Elara Stone" },
+  { category: 'DISAPPOINTMENT', text: "Let the hurt stay temporary and the lesson remain permanent.", author: "Unknown" },
+  { category: 'DISAPPOINTMENT', text: "Painful moments grow the strongest patience.", author: "Liora Hale" },
+  { category: 'DISAPPOINTMENT', text: "It’s normal to feel let down—just don’t let it shut you down.", author: "Unknown" },
+  { category: 'DISAPPOINTMENT', text: "Disappointment means your heart was brave enough to expect something good.", author: "Soren Vale" },
+  { category: 'DISAPPOINTMENT', text: "Even the darkest dips lead to brighter turns.", author: "Unknown" },
+  { category: 'DISAPPOINTMENT', text: "Allow yourself to feel it, but don't let it define you.", author: "Kai Turner" },
+  { category: 'DISAPPOINTMENT', text: "The moment that broke you may be the moment that builds you.", author: "Unknown" },
+  { category: 'DISAPPOINTMENT', text: "Disappointment isn't failure—it's perspective reshaping itself.", author: "Mira Dawn" },
+  { category: 'DISAPPOINTMENT', text: "Letting go of what didn’t work makes room for what will.", author: "Unknown" },
+  { category: 'DISAPPOINTMENT', text: "A setback is not a verdict.", author: "Isla Thorne" },
+  { category: 'DISAPPOINTMENT', text: "You’re allowed to start again—life never runs out of chances.", author: "Unknown" },
+  { category: 'DISAPPOINTMENT', text: "Your strength is measured by what you rise from.", author: "Nora Wills" },
+  { category: 'DISAPPOINTMENT', text: "Every disappointment hides a lesson waiting to be found.", author: "Unknown" },
+  { category: 'DISAPPOINTMENT', text: "Sometimes losing what you wanted leads you to what you needed.", author: "Evan Cross" },
+
+    // DISAPPROVAL
+  { category: 'DISAPPROVAL', text: "Not everything deserves your yes—protect your standards.", author: "Unknown" },
+  { category: 'DISAPPROVAL', text: "It’s okay to disagree when something goes against your values.", author: "Rhea Sol" },
+  { category: 'DISAPPROVAL', text: "Your silence can be a stronger disapproval than your words.", author: "Unknown" },
+  { category: 'DISAPPROVAL', text: "Saying no is a way of saying yes to yourself.", author: "Ayla Winters" },
+  { category: 'DISAPPROVAL', text: "When something feels wrong, trust your instinct.", author: "Unknown" },
+  { category: 'DISAPPROVAL', text: "You don’t owe approval to anything that harms your peace.", author: "Elara Stone" },
+  { category: 'DISAPPROVAL', text: "Disapproval is just clarity dressed in discomfort.", author: "Unknown" },
+  { category: 'DISAPPROVAL', text: "Not everything aligns with your standards—and that’s okay.", author: "Mira Dawn" },
+  { category: 'DISAPPROVAL', text: "Sometimes you must take a step back to honor your values.", author: "Unknown" },
+  { category: 'DISAPPROVAL', text: "Your boundaries can voice more than arguments ever will.", author: "Kai Turner" },
+  { category: 'DISAPPROVAL', text: "Disapproval doesn’t make you unkind; it makes you honest.", author: "Unknown" },
+  { category: 'DISAPPROVAL', text: "You’re allowed to reject anything that doesn’t meet your worth.", author: "Liora Hale" },
+  { category: 'DISAPPROVAL', text: "You don’t have to accept what doesn’t sit right with your soul.", author: "Unknown" },
+  { category: 'DISAPPROVAL', text: "Let your values speak louder than your fear of disapproval.", author: "Soren Vale" },
+  { category: 'DISAPPROVAL', text: "Refusing what’s unhealthy is also an act of self-respect.", author: "Unknown" },
+  { category: 'DISAPPROVAL', text: "Reactions fade, but principles stay.", author: "Nora Wills" },
+  { category: 'DISAPPROVAL', text: "You grow when you stop tolerating what drains you.", author: "Unknown" },
+  { category: 'DISAPPROVAL', text: "Saying no allows space for what truly belongs in your life.", author: "Isla Thorne" },
+  { category: 'DISAPPROVAL', text: "Disapproval doesn’t make you difficult—it makes you discerning.", author: "Unknown" },
+  { category: 'DISAPPROVAL', text: "Your tone may soften, but your boundaries must stay firm.", author: "Evan Cross" },
+
+  // DISGUST
+  { category: 'DISGUST', text: "Sometimes disgust is your soul rejecting what isn’t aligned with you.", author: "Unknown" },
+  { category: 'DISGUST', text: "When something feels wrong, trust the recoil—it’s a warning.", author: "Liora Hale" },
+  { category: 'DISGUST', text: "Disgust doesn’t make you dramatic; it makes you aware.", author: "Unknown" },
+  { category: 'DISGUST', text: "The things that repel you often reveal what you truly value.", author: "Rhea Sol" },
+  { category: 'DISGUST', text: "Disgust is a reminder to step away from what feels toxic.", author: "Unknown" },
+  { category: 'DISGUST', text: "Not everything deserves your closeness—some things are meant to be avoided.", author: "Ayla Winters" },
+  { category: 'DISGUST', text: "Your reaction is valid—you felt it for a reason.", author: "Unknown" },
+  { category: 'DISGUST', text: "Step back when something feels morally or emotionally off.", author: "Mira Dawn" },
+  { category: 'DISGUST', text: "The things that disgust you teach you what to never accept again.", author: "Unknown" },
+  { category: 'DISGUST', text: "Sometimes disgust is the boundary you didn’t know you needed.", author: "Kai Turner" },
+  { category: 'DISGUST', text: "You don’t have to be polite about things that violate your standards.", author: "Unknown" },
+  { category: 'DISGUST', text: "Disgust is clarity disguised as discomfort.", author: "Elara Stone" },
+  { category: 'DISGUST', text: "Your aversion is a signal—pay attention.", author: "Unknown" },
+  { category: 'DISGUST', text: "When your energy rejects something, so should your decisions.", author: "Soren Vale" },
+  { category: 'DISGUST', text: "There’s nothing wrong with stepping away from what feels wrong.", author: "Unknown" },
+  { category: 'DISGUST', text: "Some things are meant to be avoided, not endured.", author: "Isla Thorne" },
+  { category: 'DISGUST', text: "Disgust is your intuition saying ‘not this’.", author: "Unknown" },
+  { category: 'DISGUST', text: "Don't ignore the things your instincts recoil from.", author: "Nora Wills" },
+  { category: 'DISGUST', text: "What repels you often reflects what you’ve outgrown.", author: "Unknown" },
+  { category: 'DISGUST', text: "Sometimes disgust is your spirit’s way of protecting your growth.", author: "Evan Cross" },
+
+  // EMBARRASSMENT
+  { category: 'EMBARRASSMENT', text: "Embarrassment means you tried—be proud of that.", author: "Unknown" },
+  { category: 'EMBARRASSMENT', text: "If you can laugh at it later, it’s worth surviving now.", author: "Rhea Sol" },
+  { category: 'EMBARRASSMENT', text: "Everyone has awkward moments—they make you relatable.", author: "Unknown" },
+  { category: 'EMBARRASSMENT', text: "Embarrassing moments are proof that you're living, not hiding.", author: "Ayla Winters" },
+  { category: 'EMBARRASSMENT', text: "You learn more from cringe than from perfection.", author: "Unknown" },
+  { category: 'EMBARRASSMENT', text: "It's okay to blush—humility looks good on you.", author: "Elara Stone" },
+  { category: 'EMBARRASSMENT', text: "Awkward moments pass; your growth doesn't.", author: "Unknown" },
+  { category: 'EMBARRASSMENT', text: "Laugh at yourself kindly—it makes life easier.", author: "Mira Dawn" },
+  { category: 'EMBARRASSMENT', text: "Embarrassment means you showed up, and that’s courage.", author: "Unknown" },
+  { category: 'EMBARRASSMENT', text: "Everybody trips—what matters is how you rise with humor.", author: "Kai Turner" },
+  { category: 'EMBARRASSMENT', text: "Your awkwardness doesn't define you; your resilience does.", author: "Unknown" },
+  { category: 'EMBARRASSMENT', text: "You’re not alone—everyone has ‘why did I do that’ moments.", author: "Soren Vale" },
+  { category: 'EMBARRASSMENT', text: "Embarrassing moments become funny stories later.", author: "Unknown" },
+  { category: 'EMBARRASSMENT', text: "Give yourself permission to be imperfect.", author: "Isla Thorne" },
+  { category: 'EMBARRASSMENT', text: "Blushing is just your soul saying 'oops' with style.", author: "Unknown" },
+  { category: 'EMBARRASSMENT', text: "Own your awkward—it’s part of your charm.", author: "Liora Hale" },
+  { category: 'EMBARRASSMENT', text: "Embarrassment is temporary; confidence is built through it.", author: "Unknown" },
+  { category: 'EMBARRASSMENT', text: "One awkward moment won't ruin your story.", author: "Nora Wills" },
+  { category: 'EMBARRASSMENT', text: "Don't be ashamed of being human.", author: "Unknown" },
+  { category: 'EMBARRASSMENT', text: "Sometimes the most cringe moments lead to the most growth.", author: "Evan Cross" },
+
+    // EXCITEMENT
+  { category: 'EXCITEMENT', text: "Some moments make your heart race—in the best way.", author: "Unknown" },
+  { category: 'EXCITEMENT', text: "Let excitement pull you toward new possibilities.", author: "Rhea Sol" },
+  { category: 'EXCITEMENT', text: "Feel the spark—it's leading you somewhere worth going.", author: "Unknown" },
+  { category: 'EXCITEMENT', text: "Excitement is the echo of something good on the way.", author: "Ayla Winters" },
+  { category: 'EXCITEMENT', text: "Let yourself be thrilled by the little things.", author: "Unknown" },
+  { category: 'EXCITEMENT', text: "Some paths glow brighter the closer you get.", author: "Elara Stone" },
+  { category: 'EXCITEMENT', text: "When your heart leaps, follow it.", author: "Unknown" },
+  { category: 'EXCITEMENT', text: "The best part of a dream is the moment it starts feeling real.", author: "Mira Dawn" },
+  { category: 'EXCITEMENT', text: "Let anticipation energize you.", author: "Unknown" },
+  { category: 'EXCITEMENT', text: "Your excitement is a compass pointing toward your passion.", author: "Kai Turner" },
+  { category: 'EXCITEMENT', text: "Chase the things that make you feel alive.", author: "Unknown" },
+  { category: 'EXCITEMENT', text: "The thrill of the unknown is part of the adventure.", author: "Liora Hale" },
+  { category: 'EXCITEMENT', text: "Let joy rush in without hesitation.", author: "Unknown" },
+  { category: 'EXCITEMENT', text: "Excitement is the universe whispering, ‘You're close.’", author: "Soren Vale" },
+  { category: 'EXCITEMENT', text: "Feel the momentum—it’s your moment rising.", author: "Unknown" },
+  { category: 'EXCITEMENT', text: "Life feels brighter when you let excitement guide you.", author: "Isla Thorne" },
+  { category: 'EXCITEMENT', text: "Ride the wave of enthusiasm—it rarely leads you astray.", author: "Unknown" },
+  { category: 'EXCITEMENT', text: "Celebrate the thrill of becoming.", author: "Nora Wills" },
+  { category: 'EXCITEMENT', text: "Let every spark turn into a flame of possibility.", author: "Unknown" },
+  { category: 'EXCITEMENT', text: "Something amazing begins with a single excited step.", author: "Evan Cross" },
+
+  // FEAR
+  { category: 'FEAR', text: "Fear is a shadow—walk forward and watch it shrink.", author: "Unknown" },
+  { category: 'FEAR', text: "You’re braver than the voice trying to scare you.", author: "Rhea Sol" },
+  { category: 'FEAR', text: "Fear shows up when you're close to something important.", author: "Unknown" },
+  { category: 'FEAR', text: "It’s okay to be afraid—just don’t let it chain your feet.", author: "Ayla Winters" },
+  { category: 'FEAR', text: "Courage isn’t the absence of fear, but moving despite it.", author: "Unknown" },
+  { category: 'FEAR', text: "What you fear often hides what you want most.", author: "Elara Stone" },
+  { category: 'FEAR', text: "Fear is loud, but your strength is louder.", author: "Unknown" },
+  { category: 'FEAR', text: "Walk through fear one small step at a time.", author: "Mira Dawn" },
+  { category: 'FEAR', text: "Fear is just uncertainty disguised as danger.", author: "Unknown" },
+  { category: 'FEAR', text: "Every brave person once stood trembling too.", author: "Kai Turner" },
+  { category: 'FEAR', text: "You’ve survived every fear before this—remember that.", author: "Unknown" },
+  { category: 'FEAR', text: "Fear arrives to test your resolve, not break it.", author: "Liora Hale" },
+  { category: 'FEAR', text: "Your heart beats faster because it knows you're growing.", author: "Unknown" },
+  { category: 'FEAR', text: "Being scared doesn’t mean you’re weak—it means you care.", author: "Soren Vale" },
+  { category: 'FEAR', text: "Courage begins with trembling hands.", author: "Unknown" },
+  { category: 'FEAR', text: "Fear fades when you meet it face to face.", author: "Isla Thorne" },
+  { category: 'FEAR', text: "You don’t overcome fear by hiding from it.", author: "Unknown" },
+  { category: 'FEAR', text: "Let fear warn you, but never let it control you.", author: "Nora Wills" },
+  { category: 'FEAR', text: "Step forward, even if your voice shakes.", author: "Unknown" },
+  { category: 'FEAR', text: "Fear is the gatekeeper to your next chapter.", author: "Evan Cross" },
+
+  // GRATITUDE
+  { category: 'GRATITUDE', text: "Gratitude turns what we have into enough.", author: "Unknown" },
+  { category: 'GRATITUDE', text: "A grateful heart makes even ordinary days feel golden.", author: "Rhea Sol" },
+  { category: 'GRATITUDE', text: "Notice the small blessings—they build a big life.", author: "Unknown" },
+  { category: 'GRATITUDE', text: "Gratitude is quiet magic that changes how you see the world.", author: "Ayla Winters" },
+  { category: 'GRATITUDE', text: "The more you appreciate, the more life gives you to appreciate.", author: "Unknown" },
+  { category: 'GRATITUDE', text: "Be thankful for how far you've come.", author: "Elara Stone" },
+  { category: 'GRATITUDE', text: "Gratitude softens the heart and sharpens the soul.", author: "Unknown" },
+  { category: 'GRATITUDE', text: "Even a single moment of gratitude can shift your whole day.", author: "Mira Dawn" },
+  { category: 'GRATITUDE', text: "There is always something to be thankful for.", author: "Unknown" },
+  { category: 'GRATITUDE', text: "Gratitude brings peace where worry once lived.", author: "Kai Turner" },
+  { category: 'GRATITUDE', text: "Thankfulness turns chaos into clarity.", author: "Unknown" },
+  { category: 'GRATITUDE', text: "A grateful heart sees light even in difficult places.", author: "Liora Hale" },
+  { category: 'GRATITUDE', text: "Gratitude doesn’t ignore the hard things—it helps you endure them.", author: "Unknown" },
+  { category: 'GRATITUDE', text: "A little gratitude goes a long way.", author: "Soren Vale" },
+  { category: 'GRATITUDE', text: "Be thankful for the lessons, not just the wins.", author: "Unknown" },
+  { category: 'GRATITUDE', text: "Gratitude is the foundation of joy.", author: "Isla Thorne" },
+  { category: 'GRATITUDE', text: "Count blessings, not fears.", author: "Unknown" },
+  { category: 'GRATITUDE', text: "The more grateful you are, the more present you become.", author: "Nora Wills" },
+  { category: 'GRATITUDE', text: "Let gratitude guide your thoughts and peace will follow.", author: "Unknown" },
+  { category: 'GRATITUDE', text: "Gratitude is a quiet celebration of the heart.", author: "Evan Cross" },
+
+    // GRIEF
+  { category: 'GRIEF', text: "Grief is love with nowhere to go.", author: "Unknown" },
+  { category: 'GRIEF', text: "Healing doesn’t mean forgetting—it means learning to live again.", author: "Rhea Sol" },
+  { category: 'GRIEF', text: "It’s okay to break; mending takes time.", author: "Unknown" },
+  { category: 'GRIEF', text: "Your tears are proof of how deeply you cared.", author: "Ayla Winters" },
+  { category: 'GRIEF', text: "Grief comes in waves—let them wash through you, not drown you.", author: "Unknown" },
+  { category: 'GRIEF', text: "You don't move on from grief; you move forward with it.", author: "Elara Stone" },
+  { category: 'GRIEF', text: "Healing is slow, but it is happening.", author: "Unknown" },
+  { category: 'GRIEF', text: "Your heart is learning to hold both pain and hope.", author: "Mira Dawn" },
+  { category: 'GRIEF', text: "It’s okay to miss what once was.", author: "Unknown" },
+  { category: 'GRIEF', text: "Grief is not a weakness—it’s a testament of love.", author: "Kai Turner" },
+  { category: 'GRIEF', text: "You’re allowed to feel lost.", author: "Unknown" },
+  { category: 'GRIEF', text: "Soft hearts break loudly.", author: "Liora Hale" },
+  { category: 'GRIEF', text: "The ache you feel is the echo of something precious.", author: "Unknown" },
+  { category: 'GRIEF', text: "Even in sorrow, you are growing.", author: "Soren Vale" },
+  { category: 'GRIEF', text: "Some days will hurt more than others—and that’s okay.", author: "Unknown" },
+  { category: 'GRIEF', text: "Take your time. Your healing is not a race.", author: "Isla Thorne" },
+  { category: 'GRIEF', text: "Your heart will expand around the pain.", author: "Unknown" },
+  { category: 'GRIEF', text: "You’re grieving because it mattered.", author: "Nora Wills" },
+  { category: 'GRIEF', text: "The pain will soften, little by little.", author: "Unknown" },
+  { category: 'GRIEF', text: "One day, the memory will warm you more than it hurts.", author: "Evan Cross" },
+
+  // JOY
+  { category: 'JOY', text: "Joy often hides in the smallest moments.", author: "Unknown" },
+  { category: 'JOY', text: "Let yourself feel joy without apology.", author: "Rhea Sol" },
+  { category: 'JOY', text: "Joy is the sunshine your heart creates.", author: "Unknown" },
+  { category: 'JOY', text: "Choose the things that make your soul smile.", author: "Ayla Winters" },
+  { category: 'JOY', text: "Joy doesn’t need permission—it only needs presence.", author: "Unknown" },
+  { category: 'JOY', text: "Let joy find you, even on quiet days.", author: "Elara Stone" },
+  { category: 'JOY', text: "You deserve moments that make your heart dance.", author: "Unknown" },
+  { category: 'JOY', text: "Joy is a form of courage.", author: "Mira Dawn" },
+  { category: 'JOY', text: "Notice the good—it’s always there somewhere.", author: "Unknown" },
+  { category: 'JOY', text: "Your smile is a superpower.", author: "Kai Turner" },
+  { category: 'JOY', text: "Joy is the sound of your heart exhaling.", author: "Unknown" },
+  { category: 'JOY', text: "Celebrate even the tiny victories.", author: "Liora Hale" },
+  { category: 'JOY', text: "Joy often arrives quietly—listen for it.", author: "Unknown" },
+  { category: 'JOY', text: "Let yourself glow a little.", author: "Soren Vale" },
+  { category: 'JOY', text: "Every joy, no matter how small, is worth holding onto.", author: "Unknown" },
+  { category: 'JOY', text: "Joy multiplies when shared.", author: "Isla Thorne" },
+  { category: 'JOY', text: "When joy calls, answer.", author: "Unknown" },
+  { category: 'JOY', text: "Your joy is not a luxury—it’s a need.", author: "Nora Wills" },
+  { category: 'JOY', text: "Joy is the reminder that life still has sweetness.", author: "Unknown" },
+  { category: 'JOY', text: "Let yourself feel joy deeply; you earned it.", author: "Evan Cross" },
+
+  // LOVE
+  { category: 'LOVE', text: "Love is the quiet force that changes everything.", author: "Unknown" },
+  { category: 'LOVE', text: "Where love grows, fear shrinks.", author: "Rhea Sol" },
+  { category: 'LOVE', text: "Love is felt most in the little gestures.", author: "Unknown" },
+  { category: 'LOVE', text: "Let love soften you, not break you.", author: "Ayla Winters" },
+  { category: 'LOVE', text: "Love is not always loud—often, it’s steady.", author: "Unknown" },
+  { category: 'LOVE', text: "The heart speaks a language only love understands.", author: "Elara Stone" },
+  { category: 'LOVE', text: "Loving is brave, even when it scares you.", author: "Unknown" },
+  { category: 'LOVE', text: "Love is choosing someone again and again, even in silence.", author: "Mira Dawn" },
+  { category: 'LOVE', text: "Let love guide your steps.", author: "Unknown" },
+  { category: 'LOVE', text: "Love grows in places where care is planted.", author: "Kai Turner" },
+  { category: 'LOVE', text: "A loving heart shines even in darkness.", author: "Unknown" },
+  { category: 'LOVE', text: "Love turns ordinary moments into forever memories.", author: "Liora Hale" },
+  { category: 'LOVE', text: "True love is gentle, not loud.", author: "Unknown" },
+  { category: 'LOVE', text: "Loving deeply is never a mistake.", author: "Soren Vale" },
+  { category: 'LOVE', text: "Love is the courage to stay open.", author: "Unknown" },
+  { category: 'LOVE', text: "The world becomes softer when love leads.", author: "Isla Thorne" },
+  { category: 'LOVE', text: "Love brings warmth where fear once lived.", author: "Unknown" },
+  { category: 'LOVE', text: "Your heart is built to love more than once.", author: "Nora Wills" },
+  { category: 'LOVE', text: "Love is a light that never asks for permission to shine.", author: "Unknown" },
+  { category: 'LOVE', text: "Where love roots deeply, joy follows closely.", author: "Evan Cross" },
+
+
+    // NERVOUSNESS
+  { category: 'NERVOUSNESS', text: "Feeling nervous means you care about what’s ahead.", author: "Unknown" },
+  { category: 'NERVOUSNESS', text: "Nervousness is the body's way of saying, ‘This matters.’", author: "Rhea Sol" },
+  { category: 'NERVOUSNESS', text: "It’s okay to shake—move forward anyway.", author: "Unknown" },
+  { category: 'NERVOUSNESS', text: "Your nerves are not a weakness; they’re a sign you’re stepping out of comfort.", author: "Ayla Winters" },
+  { category: 'NERVOUSNESS', text: "Even brave hearts get nervous.", author: "Unknown" },
+  { category: 'NERVOUSNESS', text: "If it scares you a little, it might grow you a lot.", author: "Elara Stone" },
+  { category: 'NERVOUSNESS', text: "Take a deep breath—your courage is loading.", author: "Unknown" },
+  { category: 'NERVOUSNESS', text: "You’re allowed to be nervous and still capable.", author: "Mira Dawn" },
+  { category: 'NERVOUSNESS', text: "Shaky steps still move you forward.", author: "Unknown" },
+  { category: 'NERVOUSNESS', text: "Every strong person was nervous before they became confident.", author: "Kai Turner" },
+  { category: 'NERVOUSNESS', text: "Let your nerves remind you that you’re growing.", author: "Unknown" },
+  { category: 'NERVOUSNESS', text: "It's okay to feel unsure—try anyway.", author: "Liora Hale" },
+  { category: 'NERVOUSNESS', text: "Nervousness just means you're on the edge of something new.", author: "Unknown" },
+  { category: 'NERVOUSNESS', text: "Your hands may shake, but your heart knows the way.", author: "Soren Vale" },
+  { category: 'NERVOUSNESS', text: "Being nervous doesn’t disqualify you.", author: "Unknown" },
+  { category: 'NERVOUSNESS', text: "Do it nervous—bravery will join you on the way.", author: "Isla Thorne" },
+  { category: 'NERVOUSNESS', text: "Even if your voice trembles, speak.", author: "Unknown" },
+  { category: 'NERVOUSNESS', text: "Nerves show up before moments worth remembering.", author: "Nora Wills" },
+  { category: 'NERVOUSNESS', text: "You can feel nervous and still shine.", author: "Unknown" },
+  { category: 'NERVOUSNESS', text: "Courage isn't calm; it's acting despite the nerves.", author: "Evan Cross" },
+
+  // OPTIMISM
+  { category: 'OPTIMISM', text: "Better days aren’t far—they’re forming.", author: "Unknown" },
+  { category: 'OPTIMISM', text: "Optimism is choosing to see the path, not the wall.", author: "Rhea Sol" },
+  { category: 'OPTIMISM', text: "A hopeful heart can outshine a heavy day.", author: "Unknown" },
+  { category: 'OPTIMISM', text: "Even the smallest light can guide you forward.", author: "Ayla Winters" },
+  { category: 'OPTIMISM', text: "Your future is brighter than your fears.", author: "Unknown" },
+  { category: 'OPTIMISM', text: "Choose hope—it grows when you feed it.", author: "Elara Stone" },
+  { category: 'OPTIMISM', text: "Good things often start quietly.", author: "Unknown" },
+  { category: 'OPTIMISM', text: "Optimism is a soft rebellion against doubt.", author: "Mira Dawn" },
+  { category: 'OPTIMISM', text: "Believe in better, even when it feels far.", author: "Unknown" },
+  { category: 'OPTIMISM', text: "A hopeful mindset turns storms into stepping stones.", author: "Kai Turner" },
+  { category: 'OPTIMISM', text: "You’ve made it through dark days before.", author: "Unknown" },
+  { category: 'OPTIMISM', text: "Sometimes optimism is simply trying again tomorrow.", author: "Liora Hale" },
+  { category: 'OPTIMISM', text: "Hope is the quiet strength that doesn’t give up.", author: "Unknown" },
+  { category: 'OPTIMISM', text: "Keep your eyes on possibility.", author: "Soren Vale" },
+  { category: 'OPTIMISM', text: "Even slow progress is progress forward.", author: "Unknown" },
+  { category: 'OPTIMISM', text: "A little optimism can shift an entire day.", author: "Isla Thorne" },
+  { category: 'OPTIMISM', text: "Believe that something good is on its way.", author: "Unknown" },
+  { category: 'OPTIMISM', text: "When you expect good, you move like good is possible.", author: "Nora Wills" },
+  { category: 'OPTIMISM', text: "Let hope fill the spaces fear left behind.", author: "Unknown" },
+  { category: 'OPTIMISM', text: "There’s always a path—you just haven’t stepped on it yet.", author: "Evan Cross" },
+
+  // PRIDE
+  { category: 'PRIDE', text: "Be proud of how far you've come.", author: "Unknown" },
+  { category: 'PRIDE', text: "Your progress deserves recognition—even from yourself.", author: "Rhea Sol" },
+  { category: 'PRIDE', text: "You’ve grown in ways you once prayed for.", author: "Unknown" },
+  { category: 'PRIDE', text: "Stand tall—you earned your strength.", author: "Ayla Winters" },
+  { category: 'PRIDE', text: "Your small victories matter too.", author: "Unknown" },
+  { category: 'PRIDE', text: "Pride isn’t arrogance—it’s honoring your journey.", author: "Elara Stone" },
+  { category: 'PRIDE', text: "You worked for this version of yourself.", author: "Unknown" },
+  { category: 'PRIDE', text: "Celebrate your resilience.", author: "Mira Dawn" },
+  { category: 'PRIDE', text: "Be proud of the steps no one saw you take.", author: "Unknown" },
+  { category: 'PRIDE', text: "Your effort deserves appreciation.", author: "Kai Turner" },
+  { category: 'PRIDE', text: "You’re becoming someone your past self needed.", author: "Unknown" },
+  { category: 'PRIDE', text: "Hold your head high—your journey wasn’t easy.", author: "Liora Hale" },
+  { category: 'PRIDE', text: "Take pride in your consistency.", author: "Unknown" },
+  { category: 'PRIDE', text: "You should be proud—you didn’t give up.", author: "Soren Vale" },
+  { category: 'PRIDE', text: "The strength you carry was built, not given.", author: "Unknown" },
+  { category: 'PRIDE', text: "Pride grows where perseverance lives.", author: "Isla Thorne" },
+  { category: 'PRIDE', text: "Honor the work you’ve done to get here.", author: "Unknown" },
+  { category: 'PRIDE', text: "Your accomplishments—big and small—deserve celebration.", author: "Nora Wills" },
+  { category: 'PRIDE', text: "Be proud of who you are becoming.", author: "Unknown" },
+  { category: 'PRIDE', text: "Progress takes courage—own it.", author: "Evan Cross" },
+
+    // REALIZATION
+  { category: 'REALIZATION', text: "Realization often arrives quietly, but changes everything.", author: "Unknown" },
+  { category: 'REALIZATION', text: "Sometimes clarity comes only after the storm settles.", author: "Rhea Sol" },
+  { category: 'REALIZATION', text: "You understand more now than you did yesterday—honor that.", author: "Unknown" },
+  { category: 'REALIZATION', text: "Realization is growth knocking at your door.", author: "Ayla Winters" },
+  { category: 'REALIZATION', text: "When the truth clicks, the world shifts.", author: "Unknown" },
+  { category: 'REALIZATION', text: "Awareness is the first step toward real change.", author: "Elara Stone" },
+  { category: 'REALIZATION', text: "Realization is the moment your heart and mind meet in honesty.", author: "Unknown" },
+  { category: 'REALIZATION', text: "Some lessons don't hurt—they simply illuminate.", author: "Mira Dawn" },
+  { category: 'REALIZATION', text: "You’re allowed to outgrow things you once wanted.", author: "Unknown" },
+  { category: 'REALIZATION', text: "Realization turns confusion into direction.", author: "Kai Turner" },
+  { category: 'REALIZATION', text: "Sometimes you only see the truth after stepping back.", author: "Unknown" },
+  { category: 'REALIZATION', text: "A moment of realization can rewrite a lifetime of habits.", author: "Liora Hale" },
+  { category: 'REALIZATION', text: "Your awareness is expanding—embrace it.", author: "Unknown" },
+  { category: 'REALIZATION', text: "Realization isn’t always comfortable, but it’s always freeing.", author: "Soren Vale" },
+  { category: 'REALIZATION', text: "Growth begins when you finally see things clearly.", author: "Unknown" },
+  { category: 'REALIZATION', text: "Sometimes the truth isn’t new—it’s just finally acknowledged.", author: "Isla Thorne" },
+  { category: 'REALIZATION', text: "When you understand better, you choose better.", author: "Unknown" },
+  { category: 'REALIZATION', text: "Clarity can be painful—but it’s also empowering.", author: "Nora Wills" },
+  { category: 'REALIZATION', text: "You’re waking up to your own potential.", author: "Unknown" },
+  { category: 'REALIZATION', text: "Awareness brings alignment.", author: "Evan Cross" },
+
+  // RELIEF
+  { category: 'RELIEF', text: "Take a breath—you made it through.", author: "Unknown" },
+  { category: 'RELIEF', text: "Relief washes in when the burden loosens its grip.", author: "Rhea Sol" },
+  { category: 'RELIEF', text: "Sometimes the calm afterward feels like a blessing.", author: "Unknown" },
+  { category: 'RELIEF', text: "Let the tension leave your shoulders—you deserve rest.", author: "Ayla Winters" },
+  { category: 'RELIEF', text: "A quiet exhale can heal more than loud answers.", author: "Unknown" },
+  { category: 'RELIEF', text: "Relief is a gift you earn through perseverance.", author: "Elara Stone" },
+  { category: 'RELIEF', text: "You’re safe now—let the calm sink in.", author: "Unknown" },
+  { category: 'RELIEF', text: "Release what’s been heavy on your mind.", author: "Mira Dawn" },
+  { category: 'RELIEF', text: "It's okay to let yourself relax now.", author: "Unknown" },
+  { category: 'RELIEF', text: "Relief comes when you trust that things will fall into place.", author: "Kai Turner" },
+  { category: 'RELIEF', text: "Let go. You’ve carried enough.", author: "Unknown" },
+  { category: 'RELIEF', text: "A deep breath can reset an entire day.", author: "Liora Hale" },
+  { category: 'RELIEF', text: "You made it out of the hard part.", author: "Unknown" },
+  { category: 'RELIEF', text: "Relief isn’t loud—it’s peaceful.", author: "Soren Vale" },
+  { category: 'RELIEF', text: "Let the pressure lift off your chest.", author: "Unknown" },
+  { category: 'RELIEF', text: "Sometimes letting go is the most healing thing you can do.", author: "Isla Thorne" },
+  { category: 'RELIEF', text: "Rest—your heart has earned it.", author: "Unknown" },
+  { category: 'RELIEF', text: "Ease is a sign that you’re on the right path.", author: "Nora Wills" },
+  { category: 'RELIEF', text: "Finally, a moment to breathe.", author: "Unknown" },
+  { category: 'RELIEF', text: "Relief is the reward for enduring what once felt impossible.", author: "Evan Cross" },
+
+  // REMORSE
+  { category: 'REMORSE', text: "Remorse is the whisper of a lesson learned.", author: "Unknown" },
+  { category: 'REMORSE', text: "Feeling sorry is the start of becoming better.", author: "Rhea Sol" },
+  { category: 'REMORSE', text: "Your regret shows you have a conscience.", author: "Unknown" },
+  { category: 'REMORSE', text: "Mistakes hurt because they matter.", author: "Ayla Winters" },
+  { category: 'REMORSE', text: "Remorse is the heart acknowledging where it slipped.", author: "Unknown" },
+  { category: 'REMORSE', text: "Even remorse carries wisdom.", author: "Elara Stone" },
+  { category: 'REMORSE', text: "Don't shame yourself for feeling regret—it means you care.", author: "Unknown" },
+  { category: 'REMORSE', text: "Remorse is the beginning, not the end.", author: "Mira Dawn" },
+  { category: 'REMORSE', text: "Let remorse guide you toward better choices.", author: "Unknown" },
+  { category: 'REMORSE', text: "You’re allowed to grow from what you regret.", author: "Kai Turner" },
+  { category: 'REMORSE', text: "Mistakes don't make you unworthy—they make you human.", author: "Unknown" },
+  { category: 'REMORSE', text: "Regret can refine you, not define you.", author: "Liora Hale" },
+  { category: 'REMORSE', text: "Your heart mourns because it knows you can do better.", author: "Unknown" },
+  { category: 'REMORSE', text: "You can’t change the past, but you can change your next step.", author: "Soren Vale" },
+  { category: 'REMORSE', text: "Growth is born from honest reflection.", author: "Unknown" },
+  { category: 'REMORSE', text: "Let remorse be a guide, not a cage.", author: "Isla Thorne" },
+  { category: 'REMORSE', text: "Forgive yourself—you’re learning.", author: "Unknown" },
+  { category: 'REMORSE', text: "You’re not defined by your mistakes, but by what you do after them.", author: "Nora Wills" },
+  { category: 'REMORSE', text: "Remorse is a sign your heart is still good.", author: "Unknown" },
+  { category: 'REMORSE', text: "Take responsibility, then take a step forward.", author: "Evan Cross" },
+
+    // SADNESS
+  { category: 'SADNESS', text: "It’s okay to feel heavy—you won’t carry this forever.", author: "Unknown" },
+  { category: 'SADNESS', text: "Sadness is not a failure; it’s a feeling.", author: "Rhea Sol" },
+  { category: 'SADNESS', text: "Let the tears fall—they water the seeds of healing.", author: "Unknown" },
+  { category: 'SADNESS', text: "Some days are darker, but they pass.", author: "Ayla Winters" },
+  { category: 'SADNESS', text: "Your sadness doesn’t make you weak.", author: "Unknown" },
+  { category: 'SADNESS', text: "Even the heaviest storms eventually break into light.", author: "Elara Stone" },
+  { category: 'SADNESS', text: "You’re allowed to miss things you’ve outgrown.", author: "Unknown" },
+  { category: 'SADNESS', text: "Be gentle with your hurting heart.", author: "Mira Dawn" },
+  { category: 'SADNESS', text: "Sadness means something mattered.", author: "Unknown" },
+  { category: 'SADNESS', text: "This chapter may hurt, but it isn't the whole story.", author: "Kai Turner" },
+  { category: 'SADNESS', text: "Let yourself feel—numbness heals nothing.", author: "Unknown" },
+  { category: 'SADNESS', text: "You won’t feel this way forever.", author: "Liora Hale" },
+  { category: 'SADNESS', text: "Your heart is tired, not broken.", author: "Unknown" },
+  { category: 'SADNESS', text: "Even sadness carries lessons quietly.", author: "Soren Vale" },
+  { category: 'SADNESS', text: "Crying doesn’t undo your strength.", author: "Unknown" },
+  { category: 'SADNESS', text: "You’re still growing, even when it hurts.", author: "Isla Thorne" },
+  { category: 'SADNESS', text: "One day, this sadness will become understanding.", author: "Unknown" },
+  { category: 'SADNESS', text: "Be patient with your healing.", author: "Nora Wills" },
+  { category: 'SADNESS', text: "Soft hearts feel deeply—that’s their gift.", author: "Unknown" },
+  { category: 'SADNESS', text: "Sadness doesn’t define you; it just visits.", author: "Evan Cross" },
+
+  // SURPRISE
+  { category: 'SURPRISE', text: "Life loves surprising you when you least expect it.", author: "Unknown" },
+  { category: 'SURPRISE', text: "Some surprises are blessings disguised as chaos.", author: "Rhea Sol" },
+  { category: 'SURPRISE', text: "The best moments often arrive unannounced.", author: "Unknown" },
+  { category: 'SURPRISE', text: "Let yourself be open to pleasant surprises.", author: "Ayla Winters" },
+  { category: 'SURPRISE', text: "Life’s twists make the story interesting.", author: "Unknown" },
+  { category: 'SURPRISE', text: "Even unexpected moments can turn into something beautiful.", author: "Elara Stone" },
+  { category: 'SURPRISE', text: "Surprises remind you that life is alive.", author: "Unknown" },
+  { category: 'SURPRISE', text: "Sometimes the unexpected is exactly what you needed.", author: "Mira Dawn" },
+  { category: 'SURPRISE', text: "The unknown has its own way of delighting you.", author: "Unknown" },
+  { category: 'SURPRISE', text: "Let wonder find you.", author: "Kai Turner" },
+  { category: 'SURPRISE', text: "Good surprises still exist—watch closely.", author: "Unknown" },
+  { category: 'SURPRISE', text: "The best plot twists happen in real life.", author: "Liora Hale" },
+  { category: 'SURPRISE', text: "Unexpected moments hold unexpected meanings.", author: "Unknown" },
+  { category: 'SURPRISE', text: "Life always has room for a little magic.", author: "Soren Vale" },
+  { category: 'SURPRISE', text: "Sometimes the surprise is realizing how strong you’ve become.", author: "Unknown" },
+  { category: 'SURPRISE', text: "Let life astonish you once in a while.", author: "Isla Thorne" },
+  { category: 'SURPRISE', text: "Not all surprises are loud—some are soft epiphanies.", author: "Unknown" },
+  { category: 'SURPRISE', text: "The unexpected often leads to the unforgettable.", author: "Nora Wills" },
+  { category: 'SURPRISE', text: "Embrace the twist—you’re still in your story.", author: "Unknown" },
+  { category: 'SURPRISE', text: "When life surprises you, pause and savor the moment.", author: "Evan Cross" },
 
   // NEUTRAL
-  { category: 'NEUTRAL', text: 'Sometimes it’s better to remain silent and smile.', author: 'Unknown' },
-  { category: 'NEUTRAL', text: 'Life is a balance between holding on and letting go.', author: 'Rumi' },
-  { category: 'NEUTRAL', text: 'The less you respond to negativity, the more peaceful your life becomes.', author: 'Unknown' },
-  { category: 'NEUTRAL', text: 'Observe everything, judge little, and appreciate much.', author: 'Unknown' },
-  { category: 'NEUTRAL', text: 'Stay calm. The storm will pass.', author: 'Unknown' },
+  { category: 'NEUTRAL', text: "It’s okay to feel nothing in particular today.", author: "Unknown" },
+  { category: 'NEUTRAL', text: "Some days are simply days—and that’s enough.", author: "Rhea Sol" },
+  { category: 'NEUTRAL', text: "Not every moment needs emotion; some just need presence.", author: "Unknown" },
+  { category: 'NEUTRAL', text: "Neutral days help you rest between storms and sunshine.", author: "Ayla Winters" },
+  { category: 'NEUTRAL', text: "Calm doesn’t always look exciting, but it’s still valuable.", author: "Unknown" },
+  { category: 'NEUTRAL', text: "It’s okay to just… exist today.", author: "Elara Stone" },
+  { category: 'NEUTRAL', text: "Balance lives in the neutral moments.", author: "Unknown" },
+  { category: 'NEUTRAL', text: "You don’t always need a reason to feel steady.", author: "Mira Dawn" },
+  { category: 'NEUTRAL', text: "Neutral spaces make clarity easier to find.", author: "Unknown" },
+  { category: 'NEUTRAL', text: "A quiet day is still a meaningful day.", author: "Kai Turner" },
+  { category: 'NEUTRAL', text: "Feeling neutral is normal—let it be what it is.", author: "Unknown" },
+  { category: 'NEUTRAL', text: "You don’t have to feel deeply to be okay.", author: "Liora Hale" },
+  { category: 'NEUTRAL', text: "Sometimes your heart just wants a break.", author: "Unknown" },
+  { category: 'NEUTRAL', text: "Stillness carries its own kind of healing.", author: "Soren Vale" },
+  { category: 'NEUTRAL', text: "Even neutral moments help shape your journey.", author: "Unknown" },
+  { category: 'NEUTRAL', text: "You can breathe here—no pressure, no rush.", author: "Isla Thorne" },
+  { category: 'NEUTRAL', text: "A neutral mood is a reset, not a void.", author: "Unknown" },
+  { category: 'NEUTRAL', text: "Calm is also a feeling—just a quieter one.", author: "Nora Wills" },
+  { category: 'NEUTRAL', text: "Nothing remarkable still counts as something.", author: "Unknown" },
+  { category: 'NEUTRAL', text: "Neutrality is a space where peace grows quietly.", author: "Evan Cross" }
 
-  // MOTIVATED
-  { category: 'MOTIVATED', text: 'It always seems impossible until it’s done.', author: 'Nelson Mandela' },
-  { category: 'MOTIVATED', text: 'The harder you work for something, the greater you’ll feel when you achieve it.', author: 'Unknown' },
-  { category: 'MOTIVATED', text: 'Dream it. Wish it. Do it.', author: 'Unknown' },
-  { category: 'MOTIVATED', text: 'Great things never come from comfort zones.', author: 'Roy T. Bennett' },
-  { category: 'MOTIVATED', text: 'Don’t stop when you’re tired. Stop when you’re done.', author: 'Marilyn Monroe' },
-
-  // HAPPY
-  { category: 'HAPPY', text: 'Be happy not because everything is good, but because you can see the good in everything.', author: 'Unknown' },
-  { category: 'HAPPY', text: 'Happiness is a direction, not a place.', author: 'Sydney J. Harris' },
-  { category: 'HAPPY', text: 'Happiness is only real when shared.', author: 'Christopher McCandless' },
-  { category: 'HAPPY', text: 'There is no path to happiness: happiness is the path.', author: 'Buddha' },
-  { category: 'HAPPY', text: 'Do more of what makes you happy.', author: 'Unknown' },
-
-  // SAD
-  { category: 'SAD', text: 'Every human walks around with a certain kind of sadness. They may not wear it on their sleeves, but it’s there if you look deep.', author: 'Taraji P. Henson' },
-  { category: 'SAD', text: 'Sometimes you’ve got to be strong when you’re crying inside.', author: 'Unknown' },
-  { category: 'SAD', text: 'It hurts when you realize you aren’t as important to someone as you thought you were.', author: 'Unknown' },
-  { category: 'SAD', text: 'Sadness gives depth. Happiness gives height.', author: 'Osho' },
-  { category: 'SAD', text: 'We must understand that sadness is an ocean, and sometimes we drown, while other days we are forced to swim.', author: 'R.M. Drake' },
-
-  // ANGRY
-  { category: 'ANGRY', text: 'Holding onto anger is like drinking poison and expecting the other person to die.', author: 'Buddha' },
-  { category: 'ANGRY', text: 'Anger is one letter short of danger.', author: 'Eleanor Roosevelt' },
-  { category: 'ANGRY', text: 'When angry, count to ten before you speak. If very angry, count to one hundred.', author: 'Thomas Jefferson' },
-  { category: 'ANGRY', text: 'Anger makes you smaller, while forgiveness forces you to grow beyond what you were.', author: 'Cherie Carter-Scott' },
-  { category: 'ANGRY', text: 'The best fighter is never angry.', author: 'Lao Tzu' },
-
-  // NEUTRAL
-  { category: 'NEUTRAL', text: 'Sometimes doing nothing is the best reaction.', author: 'Unknown' },
-  { category: 'NEUTRAL', text: 'Calmness is the cradle of power.', author: 'Josiah Gilbert Holland' },
-  { category: 'NEUTRAL', text: 'The ability to observe without evaluating is the highest form of intelligence.', author: 'Jiddu Krishnamurti' },
-  { category: 'NEUTRAL', text: 'Peace comes from within. Do not seek it without.', author: 'Buddha' },
-  { category: 'NEUTRAL', text: 'Let your mind be still. Clarity will come.', author: 'Unknown' },
-
-
-  // MOTIVATED
-  { category: 'MOTIVATED', text: 'Success doesn’t just find you. You have to go out and get it.', author: 'Unknown' },
-  { category: 'MOTIVATED', text: 'The secret of getting ahead is getting started.', author: 'Mark Twain' },
-  { category: 'MOTIVATED', text: 'You don’t have to be great to start, but you have to start to be great.', author: 'Zig Ziglar' },
-  { category: 'MOTIVATED', text: 'Work hard in silence, let success make the noise.', author: 'Frank Ocean' },
-  { category: 'MOTIVATED', text: 'Don’t limit your challenges. Challenge your limits.', author: 'Jerry Dunn' },
-
-  // HAPPY
-  { category: 'HAPPY', text: 'Happiness is not by chance, but by choice.', author: 'Jim Rohn' },
-  { category: 'HAPPY', text: 'When you love what you have, you have everything you need.', author: 'Unknown' },
-  { category: 'HAPPY', text: 'A smile is happiness you’ll find right under your nose.', author: 'Tom Wilson' },
-  { category: 'HAPPY', text: 'Happiness is homemade.', author: 'Unknown' },
-  { category: 'HAPPY', text: 'Enjoy the little things, for one day you may look back and realize they were the big things.', author: 'Robert Brault' },
-
-  // SAD
-  { category: 'SAD', text: 'It’s sad when someone you know becomes someone you knew.', author: 'Henry Rollins' },
-  { category: 'SAD', text: 'There is no greater sorrow than to recall happiness in times of misery.', author: 'Dante Alighieri' },
-  { category: 'SAD', text: 'The walls we build around us to keep sadness out also keep out the joy.', author: 'Jim Rohn' },
-  { category: 'SAD', text: 'Crying is how your heart speaks when your lips can’t explain the pain.', author: 'Unknown' },
-  { category: 'SAD', text: 'Sadness is also a kind of defense.', author: 'Ivo Andrić' },
-
-  // ANGRY
-  { category: 'ANGRY', text: 'Anger is a wind which blows out the lamp of the mind.', author: 'Robert Ingersoll' },
-  { category: 'ANGRY', text: 'You will not be punished for your anger; you will be punished by your anger.', author: 'Buddha' },
-  { category: 'ANGRY', text: 'He who angers you conquers you.', author: 'Elizabeth Kenny' },
-  { category: 'ANGRY', text: 'When anger rises, think of the consequences.', author: 'Confucius' },
-  { category: 'ANGRY', text: 'Control your anger, for it is only one letter away from danger.', author: 'Unknown' },
-
-  // NEUTRAL
-  { category: 'NEUTRAL', text: 'In the middle of every difficulty lies opportunity.', author: 'Albert Einstein' },
-  { category: 'NEUTRAL', text: 'The best way to deal with confusion is to stay calm and wait for clarity.', author: 'Unknown' },
-  { category: 'NEUTRAL', text: 'Keep a level head and maintain perspective.', author: 'Unknown' },
-  { category: 'NEUTRAL', text: 'Silence is a source of great strength.', author: 'Lao Tzu' },
-  { category: 'NEUTRAL', text: 'Sometimes neutrality is wisdom, not indifference.', author: 'Unknown' },
-
-  // MOTIVATED
-  { category: 'MOTIVATED', text: 'Believe you can and you’re halfway there.', author: 'Theodore Roosevelt' },
-  { category: 'MOTIVATED', text: 'Don’t wish it were easier; wish you were better.', author: 'Jim Rohn' },
-  { category: 'MOTIVATED', text: 'If you want to achieve greatness, stop asking for permission.', author: 'Unknown' },
-  { category: 'MOTIVATED', text: 'Wake up with determination. Go to bed with satisfaction.', author: 'George Horace Lorimer' },
-  { category: 'MOTIVATED', text: 'Success is walking from failure to failure with no loss of enthusiasm.', author: 'Winston Churchill' },
-
-  // HAPPY
-  { category: 'HAPPY', text: 'Happiness is when what you think, what you say, and what you do are in harmony.', author: 'Mahatma Gandhi' },
-  { category: 'HAPPY', text: 'The best way to cheer yourself up is to try to cheer somebody else up.', author: 'Mark Twain' },
-  { category: 'HAPPY', text: 'A happy soul is the best shield for a cruel world.', author: 'Atticus' },
-  { category: 'HAPPY', text: 'Count your age by friends, not years. Count your life by smiles, not tears.', author: 'John Lennon' },
-  { category: 'HAPPY', text: 'Happiness is not having what you want. It is appreciating what you have.', author: 'Unknown' },
-
-  // SAD
-  { category: 'SAD', text: 'Sometimes you will never know the value of a moment until it becomes a memory.', author: 'Dr. Seuss' },
-  { category: 'SAD', text: 'It’s amazing how someone can break your heart, and you can still love them with all the little pieces.', author: 'Ella Harper' },
-  { category: 'SAD', text: 'The good times of today are the sad thoughts of tomorrow.', author: 'Bob Marley' },
-  { category: 'SAD', text: 'When it rains, look for rainbows. When it’s dark, look for stars.', author: 'Oscar Wilde' },
-  { category: 'SAD', text: 'Sadness is but a wall between two gardens.', author: 'Kahlil Gibran' },
-
-  // ANGRY
-  { category: 'ANGRY', text: 'Never respond to an angry person with a fiery comeback. Even if he deserves it… don’t allow his anger to become yours.', author: 'Bohdi Sanders' },
-  { category: 'ANGRY', text: 'Anger is like fire; it will burn all if not controlled.', author: 'Unknown' },
-  { category: 'ANGRY', text: 'If you kick a stone in anger, you’ll hurt your own foot.', author: 'Korean Proverb' },
-  { category: 'ANGRY', text: 'The best remedy for a short temper is a long walk.', author: 'Jacqueline Schiff' },
-  { category: 'ANGRY', text: 'Getting angry does not solve anything; it just makes it worse.', author: 'Unknown' },
-
-  // NEUTRAL
-  { category: 'NEUTRAL', text: 'Sometimes no reaction is the best reaction.', author: 'Unknown' },
-  { category: 'NEUTRAL', text: 'Keep your mind steady like still water.', author: 'Lao Tzu' },
-  { category: 'NEUTRAL', text: 'Learn to sit back and observe. Not everything needs a reaction.', author: 'Unknown' },
-  { category: 'NEUTRAL', text: 'When nothing is certain, anything is possible.', author: 'Margaret Drabble' },
-  { category: 'NEUTRAL', text: 'Stay neutral to chaos, and chaos will pass.', author: 'Unknown' },
-
-  // MOTIVATED
-  { category: 'MOTIVATED', text: 'Your limitation—it’s only your imagination.', author: 'Unknown' },
-  { category: 'MOTIVATED', text: 'Push harder than yesterday if you want a different tomorrow.', author: 'Vincent Williams Sr.' },
-  { category: 'MOTIVATED', text: 'Don’t be afraid to give up the good to go for the great.', author: 'John D. Rockefeller' },
-  { category: 'MOTIVATED', text: 'Sometimes later becomes never. Do it now.', author: 'Unknown' },
-  { category: 'MOTIVATED', text: 'Doubt kills more dreams than failure ever will.', author: 'Suzy Kassem' },
-
-  // HAPPY
-  { category: 'HAPPY', text: 'Happiness is not a goal; it’s a by-product of a life well lived.', author: 'Eleanor Roosevelt' },
-  { category: 'HAPPY', text: 'The key to being happy is knowing you have the power to choose what to accept and what to let go.', author: 'Dodinsky' },
-  { category: 'HAPPY', text: 'Wherever you go, no matter what the weather, always bring your own sunshine.', author: 'Anthony J. D’Angelo' },
-  { category: 'HAPPY', text: 'Happiness is the highest form of health.', author: 'Dalai Lama' },
-  { category: 'HAPPY', text: 'A happy life consists in tranquility of mind.', author: 'Marcus Tullius Cicero' },
-
-  // SAD
-  { category: 'SAD', text: 'Every man has his secret sorrows which the world knows not.', author: 'Henry Wadsworth Longfellow' },
-  { category: 'SAD', text: 'Sometimes, you just have to accept that some chapters will close without closure.', author: 'Unknown' },
-  { category: 'SAD', text: 'Behind every broken heart is a story that made it strong.', author: 'Unknown' },
-  { category: 'SAD', text: 'The longer and more carefully we look at a funny story, the sadder it becomes.', author: 'Nikolai Gogol' },
-  { category: 'SAD', text: 'Pain is inevitable. Suffering is optional.', author: 'Haruki Murakami' },
-
-  // ANGRY
-  { category: 'ANGRY', text: 'Anger dwells only in the bosom of fools.', author: 'Albert Einstein' },
-  { category: 'ANGRY', text: 'When anger rises, think of the consequences before you act.', author: 'Confucius' },
-  { category: 'ANGRY', text: 'Anger is never without a reason, but seldom with a good one.', author: 'Benjamin Franklin' },
-  { category: 'ANGRY', text: 'Whatever is begun in anger ends in shame.', author: 'Benjamin Franklin' },
-  { category: 'ANGRY', text: 'The greatest remedy for anger is delay.', author: 'Seneca' },
-
-  // NEUTRAL
-  { category: 'NEUTRAL', text: 'Balance is not something you find, it’s something you create.', author: 'Jana Kingsford' },
-  { category: 'NEUTRAL', text: 'Calm mind brings inner strength and self-confidence.', author: 'Dalai Lama' },
-  { category: 'NEUTRAL', text: 'Be still. The quieter you become, the more you can hear.', author: 'Ram Dass' },
-  { category: 'NEUTRAL', text: 'It is not the situation, but your reaction to it, that matters.', author: 'Epictetus' },
-  { category: 'NEUTRAL', text: 'Stay grounded even when life pulls you in all directions.', author: 'Unknown' },
-
-  // MOTIVATED
-  { category: 'MOTIVATED', text: 'Failure is not the opposite of success; it’s part of success.', author: 'Arianna Huffington' },
-  { category: 'MOTIVATED', text: 'If you want something you never had, you have to do something you’ve never done.', author: 'Thomas Jefferson' },
-  { category: 'MOTIVATED', text: 'Don’t be pushed around by the fears in your mind. Be led by the dreams in your heart.', author: 'Roy T. Bennett' },
-  { category: 'MOTIVATED', text: 'Small progress is still progress.', author: 'Unknown' },
-  { category: 'MOTIVATED', text: 'The expert in anything was once a beginner.', author: 'Helen Hayes' },
-
-  // HAPPY
-  { category: 'HAPPY', text: 'Happiness is found when you stop comparing yourself to others.', author: 'Unknown' },
-  { category: 'HAPPY', text: 'Collect moments, not things.', author: 'Unknown' },
-  { category: 'HAPPY', text: 'When you focus on the good, the good gets better.', author: 'Abraham Hicks' },
-  { category: 'HAPPY', text: 'The happiness of your life depends upon the quality of your thoughts.', author: 'Marcus Aurelius' },
-  { category: 'HAPPY', text: 'Happiness grows at our own firesides, and is not to be picked in strangers’ gardens.', author: 'Douglas Jerrold' },
-
-  // SAD
-  { category: 'SAD', text: 'We enjoy warmth because we have been cold. We appreciate light because we have been in darkness.', author: 'David L. Weatherford' },
-  { category: 'SAD', text: 'It’s hard to forget someone who gave you so much to remember.', author: 'Unknown' },
-  { category: 'SAD', text: 'There are wounds that never show on the body that are deeper and more hurtful than anything that bleeds.', author: 'Laurell K. Hamilton' },
-  { category: 'SAD', text: 'Sometimes you must accept that certain things will never go back to how they used to be.', author: 'Unknown' },
-  { category: 'SAD', text: 'Behind every sadness, there is a story untold.', author: 'Unknown' },
-
-  // ANGRY
-  { category: 'ANGRY', text: 'Speak when you are angry and you’ll make the best speech you’ll ever regret.', author: 'Laurence J. Peter' },
-  { category: 'ANGRY', text: 'Holding onto anger gives someone else control over your emotions.', author: 'Unknown' },
-  { category: 'ANGRY', text: 'Anger is temporary madness.', author: 'Horace' },
-  { category: 'ANGRY', text: 'When you learn to control your anger, you gain control of your life.', author: 'Unknown' },
-  { category: 'ANGRY', text: 'The more anger towards the past you carry in your heart, the less capable you are of loving in the present.', author: 'Barbara De Angelis' },
-
-  // NEUTRAL
-  { category: 'NEUTRAL', text: 'Patience is not the ability to wait, but how you act while waiting.', author: 'Joyce Meyer' },
-  { category: 'NEUTRAL', text: 'Calm seas never made a skilled sailor.', author: 'Franklin D. Roosevelt' },
-  { category: 'NEUTRAL', text: 'Acceptance of what has happened is the first step to overcoming the consequences of any misfortune.', author: 'William James' },
-  { category: 'NEUTRAL', text: 'Stay present. The past is gone, and the future hasn’t happened yet.', author: 'Unknown' },
-  { category: 'NEUTRAL', text: 'Peace is not the absence of conflict, but the ability to cope with it.', author: 'Mahatma Gandhi' },
-
-   // HAPPY
-  {
-    text: "Happiness is not something you postpone for the future; it’s something you design for the present.",
-    category: "HAPPY",
-    author: "Jim Rohn"
-  },
-  {
-    text: "Smile at the world, and the world will smile back at you.",
-    category: "HAPPY",
-    author: "Unknown"
-  },
-  {
-    text: "Joy is the simplest form of gratitude.",
-    category: "HAPPY",
-    author: "Karl Barth"
-  },
-  {
-    text: "When you focus on the good, the good gets better.",
-    category: "HAPPY",
-    author: "Abraham Hicks"
-  },
-  {
-    text: "Happiness doesn’t depend on what you have, but on how you think.",
-    category: "HAPPY",
-    author: "Dale Carnegie"
-  },
-  {
-    text: "The purpose of our lives is to be happy.",
-    category: "HAPPY",
-    author: "Dalai Lama"
-  },
-  {
-    text: "Every day may not be good, but there is something good in every day.",
-    category: "HAPPY",
-    author: "Unknown"
-  },
-  {
-    text: "A happy heart makes the face cheerful.",
-    category: "HAPPY",
-    author: "Proverbs 15:13"
-  },
-  {
-    text: "The most wasted of all days is one without laughter.",
-    category: "HAPPY",
-    author: "Nicolas Chamfort"
-  },
-  {
-    text: "Happiness grows when shared.",
-    category: "HAPPY",
-    author: "Unknown"
-  },
-
-  // SAD
-  {
-    text: "Tears are words the heart can’t express.",
-    category: "SAD",
-    author: "Unknown"
-  },
-  {
-    text: "Sometimes you have to know when to stop hoping.",
-    category: "SAD",
-    author: "Unknown"
-  },
-  {
-    text: "Behind every sweet smile, there is a bitter sadness that no one can see and feel.",
-    category: "SAD",
-    author: "Tupac Shakur"
-  },
-  {
-    text: "You can’t stop the waves, but you can learn to surf.",
-    category: "SAD",
-    author: "Jon Kabat-Zinn"
-  },
-  {
-    text: "It’s okay to cry. It’s okay to be sad. Healing takes time.",
-    category: "SAD",
-    author: "Unknown"
-  },
-  {
-    text: "Even the darkest night will end and the sun will rise.",
-    category: "SAD",
-    author: "Victor Hugo"
-  },
-  {
-    text: "Sadness flies away on the wings of time.",
-    category: "SAD",
-    author: "Jean de La Fontaine"
-  },
-  {
-    text: "Grief changes shape, but it never ends.",
-    category: "SAD",
-    author: "Keanu Reeves"
-  },
-  {
-    text: "Sometimes, you don’t move on. You just learn to live without what you lost.",
-    category: "SAD",
-    author: "Unknown"
-  },
-  {
-    text: "Your sadness today will one day become your strength.",
-    category: "SAD",
-    author: "Unknown"
-  },
-
-  // NEUTRAL
-  {
-    text: "Life is neither good nor bad, it just is.",
-    category: "NEUTRAL",
-    author: "Marcus Aurelius"
-  },
-  {
-    text: "Sometimes, doing nothing is doing something important.",
-    category: "NEUTRAL",
-    author: "Unknown"
-  },
-  {
-    text: "Peace comes from accepting what is.",
-    category: "NEUTRAL",
-    author: "Eckhart Tolle"
-  },
-  {
-    text: "Be calm in your heart, and you will understand the world clearly.",
-    category: "NEUTRAL",
-    author: "Lao Tzu"
-  },
-  {
-    text: "Not every moment needs meaning; some are simply to be lived.",
-    category: "NEUTRAL",
-    author: "Unknown"
-  },
-  {
-    text: "Let the silence speak for itself.",
-    category: "NEUTRAL",
-    author: "Unknown"
-  },
-  {
-    text: "The middle path is often the truest one.",
-    category: "NEUTRAL",
-    author: "Buddha"
-  },
-  {
-    text: "Observe more, react less.",
-    category: "NEUTRAL",
-    author: "Unknown"
-  },
-  {
-    text: "Everything passes when you stop clinging to it.",
-    category: "NEUTRAL",
-    author: "Unknown"
-  },
-  {
-    text: "Just because it’s quiet doesn’t mean nothing is happening.",
-    category: "NEUTRAL",
-    author: "Unknown"
-  },
-
-  // ANGRY
-  {
-    text: "Holding onto anger is like drinking poison and expecting the other person to die.",
-    category: "ANGRY",
-    author: "Buddha"
-  },
-  {
-    text: "Speak when you are angry, and you will make the best speech you will ever regret.",
-    category: "ANGRY",
-    author: "Ambrose Bierce"
-  },
-  {
-    text: "Anger doesn’t solve anything; it only burns what’s already fragile.",
-    category: "ANGRY",
-    author: "Unknown"
-  },
-  {
-    text: "Control your anger, or it will control you.",
-    category: "ANGRY",
-    author: "Unknown"
-  },
-  {
-    text: "Anger is a wind which blows out the lamp of the mind.",
-    category: "ANGRY",
-    author: "Robert Ingersoll"
-  },
-  {
-    text: "The best fighter is never angry.",
-    category: "ANGRY",
-    author: "Lao Tzu"
-  },
-  {
-    text: "You don’t have to attend every argument you’re invited to.",
-    category: "ANGRY",
-    author: "Unknown"
-  },
-  {
-    text: "A moment of patience in a moment of anger saves a thousand moments of regret.",
-    category: "ANGRY",
-    author: "Ali Ibn Abi Talib"
-  },
-  {
-    text: "Don’t let anger make decisions for you.",
-    category: "ANGRY",
-    author: "Unknown"
-  },
-  {
-    text: "Silence is sometimes the most powerful response to anger.",
-    category: "ANGRY",
-    author: "Unknown"
-  },
-
-  // MOTIVATED
-  {
-    text: "Don’t watch the clock; do what it does. Keep going.",
-    category: "MOTIVATED",
-    author: "Sam Levenson"
-  },
-  {
-    text: "Discipline is the bridge between goals and accomplishment.",
-    category: "MOTIVATED",
-    author: "Jim Rohn"
-  },
-  {
-    text: "Push yourself, because no one else is going to do it for you.",
-    category: "MOTIVATED",
-    author: "Unknown"
-  },
-  {
-    text: "The harder you work for something, the greater you’ll feel when you achieve it.",
-    category: "MOTIVATED",
-    author: "Unknown"
-  },
-  {
-    text: "Success is what happens after you’ve survived all your mistakes.",
-    category: "MOTIVATED",
-    author: "Unknown"
-  },
-  {
-    text: "Dream big. Work hard. Stay humble.",
-    category: "MOTIVATED",
-    author: "Unknown"
-  },
-  {
-    text: "Wake up with determination. Go to bed with satisfaction.",
-    category: "MOTIVATED",
-    author: "Unknown"
-  },
-  {
-    text: "It always seems impossible until it’s done.",
-    category: "MOTIVATED",
-    author: "Nelson Mandela"
-  },
-  {
-    text: "Don’t stop until you’re proud.",
-    category: "MOTIVATED",
-    author: "Unknown"
-  },
-  {
-    text: "Small steps every day lead to big results.",
-    category: "MOTIVATED",
-    author: "Unknown"
-  },
-    // HAPPY
-  {
-    text: "Happiness is not the absence of problems, but the ability to deal with them.",
-    category: "HAPPY",
-    author: "Steve Maraboli"
-  },
-  {
-    text: "The happiest people don’t have the best of everything, they just make the best of everything.",
-    category: "HAPPY",
-    author: "Unknown"
-  },
-  {
-    text: "A smile is a curve that sets everything straight.",
-    category: "HAPPY",
-    author: "Phyllis Diller"
-  },
-  {
-    text: "Happiness comes when we stop complaining about the troubles we have and offer thanks for the troubles we don’t.",
-    category: "HAPPY",
-    author: "Unknown"
-  },
-  {
-    text: "Do more of what makes you happy.",
-    category: "HAPPY",
-    author: "Unknown"
-  },
-  {
-    text: "Happiness is a journey, not a destination.",
-    category: "HAPPY",
-    author: "Ben Sweetland"
-  },
-  {
-    text: "You deserve to be happy, not just fine.",
-    category: "HAPPY",
-    author: "Unknown"
-  },
-  {
-    text: "Sometimes happiness sneaks in through a door you didn’t know you left open.",
-    category: "HAPPY",
-    author: "John Barrymore"
-  },
-  {
-    text: "Collect moments, not things.",
-    category: "HAPPY",
-    author: "Unknown"
-  },
-  {
-    text: "The key to happiness is letting each situation be what it is.",
-    category: "HAPPY",
-    author: "Mandy Hale"
-  },
-
-  // SAD
-  {
-    text: "The pain you feel today is the strength you feel tomorrow.",
-    category: "SAD",
-    author: "Unknown"
-  },
-  {
-    text: "Sometimes it’s okay if all you did today was breathe.",
-    category: "SAD",
-    author: "Unknown"
-  },
-    {
-    text: "You’ll never know how strong you are until being strong is your only choice.",
-    category: "SAD",
-    author: "Bob Marley"
-  },
-  {
-    text: "Crying doesn’t indicate weakness. It means you’ve been strong for too long.",
-    category: "SAD",
-    author: "Unknown"
-  },
-  {
-    text: "It hurts because it mattered.",
-    category: "SAD",
-    author: "John Green"
-  },
-  {
-    text: "Sometimes you need to sit alone and let your tears speak for you.",
-    category: "SAD",
-    author: "Unknown"
-  },
-  {
-    text: "There’s a certain kind of beauty in sadness that only the heart understands.",
-    category: "SAD",
-    author: "Unknown"
-  },
-  {
-    text: "Healing doesn’t mean the damage never existed. It means it no longer controls your life.",
-    category: "SAD",
-    author: "Unknown"
-  },
-  {
-    text: "It’s sad when you realize you aren’t as important to someone as you thought.",
-    category: "SAD",
-    author: "Unknown"
-  },
-  {
-    text: "One day you’ll look back and understand why it had to happen.",
-    category: "SAD",
-    author: "Unknown"
-  },
-
-  // NEUTRAL
-  {
-    text: "The world is neither kind nor cruel—it simply is.",
-    category: "NEUTRAL",
-    author: "Unknown"
-  },
-  {
-    text: "Be still. The answers will come in silence.",
-    category: "NEUTRAL",
-    author: "Unknown"
-  },
-  {
-    text: "In the middle of chaos, find your calm.",
-    category: "NEUTRAL",
-    author: "Unknown"
-  },
-  {
-    text: "Balance is not something you find, it’s something you create.",
-    category: "NEUTRAL",
-    author: "Jana Kingsford"
-  },
-  {
-    text: "Neither too high nor too low—stay centered.",
-    category: "NEUTRAL",
-    author: "Unknown"
-  },
-  {
-    text: "Detach from what you can’t control, and you’ll find peace.",
-    category: "NEUTRAL",
-    author: "Unknown"
-  },
-  {
-    text: "Sometimes neutrality is the most powerful stance.",
-    category: "NEUTRAL",
-    author: "Unknown"
-  },
-  {
-    text: "When nothing is certain, anything is possible.",
-    category: "NEUTRAL",
-    author: "Unknown"
-  },
-  {
-    text: "Observe your thoughts like clouds passing in the sky.",
-    category: "NEUTRAL",
-    author: "Thich Nhat Hanh"
-  },
-  {
-    text: "Peace doesn’t mean the absence of noise, but the calm within it.",
-    category: "NEUTRAL",
-    author: "Unknown"
-  },
-
-  // ANGRY
-  {
-    text: "Never reply when you’re angry. Never make promises when you’re happy. Never decide when you’re sad.",
-    category: "ANGRY",
-    author: "Unknown"
-  },
-  {
-    text: "Anger is one letter short of danger.",
-    category: "ANGRY",
-    author: "Eleanor Roosevelt"
-  },
-  {
-    text: "You will not be punished for your anger; you will be punished by your anger.",
-    category: "ANGRY",
-    author: "Buddha"
-  },
-  {
-    text: "Don’t let your emotions overpower your intelligence.",
-    category: "ANGRY",
-    author: "Unknown"
-  },
-  {
-    text: "Anger is often just sadness in disguise.",
-    category: "ANGRY",
-    author: "Unknown"
-  },
-  {
-    text: "Every minute you are angry, you lose sixty seconds of happiness.",
-    category: "ANGRY",
-    author: "Ralph Waldo Emerson"
-  },
-  {
-    text: "It takes a strong person to stay calm in a chaotic world.",
-    category: "ANGRY",
-    author: "Unknown"
-  },
-  {
-    text: "You can’t control what others do, but you can control how you respond.",
-    category: "ANGRY",
-    author: "Unknown"
-  },
-  {
-    text: "Anger clouds judgment. Calm clears it.",
-    category: "ANGRY",
-    author: "Unknown"
-  },
-  {
-    text: "Breathe. You’re not responsible for fixing everyone.",
-    category: "ANGRY",
-    author: "Unknown"
-  },
-
-  // MOTIVATED
-  {
-    text: "If you want something you’ve never had, you must be willing to do something you’ve never done.",
-    category: "MOTIVATED",
-    author: "Thomas Jefferson"
-  },
-  {
-    text: "Don’t limit your challenges—challenge your limits.",
-    category: "MOTIVATED",
-    author: "Unknown"
-  },
-  {
-    text: "Failure is simply the opportunity to begin again, this time more intelligently.",
-    category: "MOTIVATED",
-    author: "Henry Ford"
-  },
-  {
-    text: "Act as if what you do makes a difference. It does.",
-    category: "MOTIVATED",
-    author: "William James"
-  },
-  {
-    text: "The secret of getting ahead is getting started.",
-    category: "MOTIVATED",
-    author: "Mark Twain"
-  },
-  {
-    text: "Success doesn’t come from what you do occasionally, but from what you do consistently.",
-    category: "MOTIVATED",
-    author: "Unknown"
-  },
-  {
-    text: "You don’t have to be great to start, but you have to start to be great.",
-    category: "MOTIVATED",
-    author: "Zig Ziglar"
-  },
-  {
-    text: "Great things never come from comfort zones.",
-    category: "MOTIVATED",
-    author: "Unknown"
-  },
-  {
-    text: "The future depends on what you do today.",
-    category: "MOTIVATED",
-    author: "Mahatma Gandhi"
-  },
-  {
-    text: "Stay hungry, stay foolish.",
-    category: "MOTIVATED",
-    author: "Steve Jobs"
-  }
 
 ];
-
+// gimana caranya dia di chunk jadi 20 per request
 
 export default quotes;

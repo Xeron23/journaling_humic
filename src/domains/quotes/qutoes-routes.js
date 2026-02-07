@@ -23,7 +23,7 @@ class QuoteRoutes extends BaseRoutes{
             ]);
             this.router.get("/recomendation", [
                 AuthMiddleware.authenticate,
-                validateCredentials(quoteRecomendation),
+                validateCredentials(quoteRecomendation, 'query'),
                 tryCatch(quotesController.recomendation)
             ]);
             this.router.get("/:quoteId", [

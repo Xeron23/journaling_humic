@@ -18,7 +18,7 @@ RUN chmod +x ./node_modules/.bin/prisma
 RUN npx prisma generate
 
 # Expose port
-EXPOSE 3002
+EXPOSE 4001
 
 # Jalankan aplikasi
 CMD ["npm", "start"]

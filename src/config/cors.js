@@ -1,7 +1,7 @@
 const allowedOrigins = [
     "http://localhost:3000",
     "http://localhost:3001",
-    "https://soulspace-rust.vercel.app"
+    "http://localhost:5173",
 ];
 
 const corsOptions = {

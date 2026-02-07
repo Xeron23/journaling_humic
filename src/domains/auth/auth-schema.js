@@ -48,11 +48,16 @@ const registerSchema = Joi.object({
             "string.min": "Password must be at least 8 characters long.",
             "string.pattern.base": "Password must be at least 8 characters long, contain at least 1 uppercase letter, and 1 special character."
         }),
+    gender: Joi.string().valid("male", "female").optional()
+        .messages({
+            "string.base": "Gender must be string",
+            "any.only": "Gender must be one of male, female"
+    }),
 });
     
 
 const profileSchema = Joi.object({
-    fullname : Joi.string().optional().min(4)
+    fullName : Joi.string().optional().min(4)
         .messages({
             "string.empty": "Fullname is required.",
             "string.min": "Fullname must be at least 4 characters long."
@@ -62,10 +67,15 @@ const profileSchema = Joi.object({
             "string.empty": "Username is required.",
             "string.min": "Username must be at least 4 characters long."
     }),
-    birth_date: Joi.date().optional()
+    birthDate: Joi.date().optional()
         .messages({
             "date.empty": "Birth date is required.",
             "date.base": "Birth date must be a valid date."
+    }),
+    gender: Joi.string().valid("male", "female").optional()
+        .messages({
+            "string.base": "Gender must be string",
+            "any.only": "Gender must be one of  male, female"
     }),
 });
 
@@ -104,13 +114,22 @@ const resetPasswordSchema = Joi.object({
         .messages({
             "any.only": "Passwords do not match."
         }),
-    id: Joi.number().min(1).required()
+    token: Joi.string().required()
         .messages({
-            "number.base": `id user should be a type of number`,
-            "number.empty": `id user cannot be an empty field`,
-            "number.min": `id user should have a minimum value of 1`,
-            "any.required": `id user is a required field`
+            "string.base": `token user should be a type of string`,
+            "string.empty": `token user cannot be an empty field`,
+            "any.required": `token user is a required field`
         })
 })
 
-export { loginSchema, registerSchema, profileSchema, changePasswordSchema, refreshTokenSchema, resetPasswordSchema };
+const emailResetPasswordSchema = Joi.object({
+    email : Joi.string()
+        .email()
+        .required()
+        .messages({
+            "string.empty": "Email is required.",
+            "string.email": "Email must be a valid email address."
+        }),
+});
+
+export { loginSchema, registerSchema, profileSchema, changePasswordSchema, refreshTokenSchema, resetPasswordSchema, emailResetPasswordSchema };

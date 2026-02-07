@@ -17,6 +17,7 @@ import corsOptions from "./config/cors.js";
 import AuthRoutes from "./domains/auth/auth-routes.js";
 import journalRoutes from "./domains/journals/journal-routes.js";
 import qutoesRoutes from "./domains/quotes/qutoes-routes.js";
+import userRoutes from "./domains/user/user-routes.js";
 
 class ExpressApplication {
     app;
@@ -89,6 +90,7 @@ class ExpressApplication {
         this.app.use("/api/v1/auth", AuthRoutes);
         this.app.use("/api/v1/journal", journalRoutes);
         this.app.use("/api/v1/quote", qutoesRoutes);
+        this.app.use("/api/v1/user", userRoutes);
 
     }
 

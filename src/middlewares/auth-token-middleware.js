@@ -19,7 +19,7 @@ class AuthMiddleware {
                 'UNAUTHORIZED',
                 'User Have Not Login',
             );
-
+        
 
         try {
             
@@ -48,7 +48,7 @@ class AuthMiddleware {
                     )
                 );
             }
-        
+            
             req.user = user;
         
             next();
@@ -79,18 +79,22 @@ class AuthMiddleware {
     }
 
 
-    authorizeUser = (roles)=>{
-        return (req, res, next)=>{
-            const user = req.user
-    
-            if(!roles.includes(user.role)){
+    authorizeUser = (roles) => (req, res, next) => {
+        const user = req.user;
+        
+        if (!roles.includes(user.role)) {
                 return next(
-                    new BaseError.forbidden("Access Denied")
-                );
-            }
-            next()
+                    new BaseError(
+                        403,
+                        statusCodes.FORBIDDEN.message,
+                        'FORBIDDEN',
+                        'access denied'
+                    )
+            );
         }
-    }
+
+        next();
+    };
 }
 
 

@@ -24,27 +24,20 @@ class AuthService {
                 throw BaseError.badRequest("Invalid credentials");
             }
         }
-
+        
+        const now = new Date();
+        await prisma.user.update({
+            where: { user_id: user.user_id },
+            data: {
+                last_login_at: user.current_login_at,
+                current_login_at: now
+            }
+        });
 
         const isMatch = await matchPassword(password, user.password);
         
         if (!isMatch) {
             throw BaseError.badRequest("Invalid credentials");
-        }
-
-        if (!user.verifiedAt){
-            const token = generateToken(user.user_id, "5m");
-            const verificationLink = `${process.env.BE_URL}/api/v1/auth/verify/${token}`;
-            const emailHtml = generateVerifEmail(verificationLink);
-
-            sendEmail(
-                user.email,
-                "Verifikasi Email dari Test: Test Channel",
-                "Terima kasih telah mendaftar di Test: Test Channel! Untuk melanjutkan, silakan verifikasi email Anda dengan mengklik tautan berikut:",
-                emailHtml
-            );
-
-            throw BaseError.badRequest("Email not verified, Please check your email to verify your account.");
         }
 
         const accessToken = generateToken(user.user_id, "1d");
@@ -100,54 +93,7 @@ class AuthService {
             throw Error("Failed to register");
         }
 
-        const token = generateToken(createdUser.user_id, "5m");
-        const verificationLink = `${process.env.BE_URL}/api/v1/auth/verify/${token}`;
-        
-        const emailHtml = generateVerifEmail(verificationLink);
-
-        sendEmail(
-                createdUser.email,
-                "Verifikasi Email dari Test: Test Channel",
-                "Terima kasih telah mendaftar di Test: Test Channel! Untuk melanjutkan, silakan verifikasi email Anda dengan mengklik tautan berikut:",
-                emailHtml
-        );
-
-        return {message: "User registered successfully. Please check your email to verify your account."};
-    }
-
-    async verify(token) {
-        const decoded = parseJWT(token);
-        
-        if (!decoded) {
-            return { status: 400, message: "Invalid token" };
-        }
-        console.log(decoded.id);
-        
-
-        const user = await  prisma.user.findUnique({
-            where: {
-                user_id: decoded.id
-            }
-        });
-
-        if (!user) {
-            return { status: 400, message: "User Not Found" }
-        }
-
-        if (user.verifiedAt){
-            return { status: 400, message: "Email already verified" };
-        }
-
-        await prisma.user.update({
-            where: {
-                user_id: user.user_id
-            },
-            data: {
-                verifiedAt: new Date()
-            }
-        });
-
-        return { status: 200, message: "Email verified successfully" };
+        return {message: "User registered successfully."};
     }
 
     async getProfile(id) {
@@ -158,9 +104,12 @@ class AuthService {
             select: {
                 user_id: true,
                 username: true,
+                fullName: true,
                 role: true,
                 email: true,
-                birthDate: true
+                birthDate: true,
+                last_login_at: true,
+                gender: true
             }
         });
 
@@ -181,7 +130,7 @@ class AuthService {
         if (!user) {
             throw BaseError.notFound("User not found");
         }
-
+        data.birthDate = new Date(data.birthDate);
         const updatedUser = await prisma.user.update({
             where: {
                 user_id: user.user_id
@@ -259,13 +208,19 @@ class AuthService {
         const user = await prisma.user.findFirst({
             where: {
                 email: email
+            },
+            select: {
+                fullName: true,
+                user_id: true,
+                email: true,
+                role: true
             }
         })
         if(!user){
             throw BaseError.notFound("user not found");
         }
 
-        const token = generateToken(user.user_id, "5m");
+        const token = generateToken(user.user_id, "30m");
             const verificationLink = `${process.env.BE_URL}/api/v1/auth/verify-reset-password/${token}`;
             console.log("link: ", verificationLink);
         
@@ -299,18 +254,27 @@ class AuthService {
                 role: true
             }
         });
+        
 
         if (!user) {
             return { status: 400, message: "User Not Found" }
         }
 
-        return {status: 200, message: "Password verification successfully", data: user}
+        return {status: 200, message: "Password verification successfully", data: token}
     }
 
-    async resetPassword(newPassword, id){
+    async resetPassword(newPassword, token){
+        const decoded = parseJWT(token);
+        console.log(decoded);
+        
+
+        if(!decoded){
+            return { status: 400, message: "Invalid token" };
+        }
+
         const user = await prisma.user.findUnique({
             where: {
-                user_id: id,
+                user_id: decoded.id,
             }
         })
         if(!user){
@@ -320,7 +284,7 @@ class AuthService {
         user.password = await hashPassword(newPassword);
         await prisma.user.update({
             where: {
-                user_id: id
+                user_id: user.user_id
             },
             data: {
                 password: user.password

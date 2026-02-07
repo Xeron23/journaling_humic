@@ -16,27 +16,14 @@ class AuthController {
 
     async register(req, res) {
 
-        const { fullName, username , birthDate, password, email} = req.body;
-        const message = await AuthService.register({ fullName, username, birthDate, password, email });
+        const { fullName, username , birthDate, password, email, gender= null} = req.body;
+        const message = await AuthService.register({ fullName, username, birthDate, password, email, gender });
 
         if (!message) {
             throw Error("Failed to register");
         }
 
         return successResponse(res, message);
-    }
-
-    async verify(req, res) {
-        const { token } = req.params;
-
-        const response = await AuthService.verify(token);
-
-        if (response.status !== 200) {
-            return res.redirect(`${process.env.FE_URL}/login?verify=failed&message=${response.message}`);
-        }
-
-        return res.redirect(`${process.env.FE_URL}/login?verify=success`);
-
     }
 
     async getProfile(req, res){
@@ -50,9 +37,9 @@ class AuthController {
     }
 
     async updateProfile(req, res){
-        const { fullname, username, birthDate } = req.body;
+        const { fullName, username, birthDate, gender } = req.body;
 
-        const user = await AuthService.updateProfile(req.user.user_id, { fullname, username, birthDate });
+        const user = await AuthService.updateProfile(req.user.user_id, { fullName, username, birthDate, gender });
 
         if (!user) {
             throw Error("Failed to update user profile");
@@ -106,20 +93,22 @@ class AuthController {
         const response = await AuthService.verifyResetPassword(token);
 
         if (response.status !== 200) {
-            return res.redirect(`${process.env.FE_URL}/reset-password?verify=failed&message=${response.message}`);
+            return res.redirect(`${process.env.FE_URL}/change-password?verify=failed&message=${response.message}`);
         }
+        console.log(response);
+        
 
-        return res.redirect(`${process.env.FE_URL}/reset-password?verify=success&user=${response.data.user_id}`);
+        return res.redirect(`${process.env.FE_URL}/change-password?verify=success&token=${response.data}`);
     }
 
     async resetPassword(req, res){
-        const {new_password, confirm_password, id } = req.body;
+        const {new_password, confirm_password, token } = req.body;
 
         if(new_password !== confirm_password){
             throw Error("Failed to update user password")
         }
 
-        const message = await AuthService.resetPassword(new_password, id)
+        const message = await AuthService.resetPassword(new_password, token);
 
         if(!message){
             throw Error("failed to reset password")
